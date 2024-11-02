@@ -322,9 +322,9 @@ ggplot(exprs_long, aes(value, color = Var2)) +
   theme_minimal()
 
 ###############################
-# RLE and NUSE plots, if available
+# RLE and NUSE plots, if available -> check what these are
 ###############################
 
 ###############################
-# NEXT STEPS: PCA & HEATMAP
+# NEXT STEPS: PCA & HEATMAP & VOLCANO
 ###############################
