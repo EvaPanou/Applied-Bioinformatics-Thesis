@@ -1,6 +1,6 @@
 # Applied-Bioinformatics-Thesis
 
-#### **This repository will contain all the relevant steps and commands to follow in order to identify biomarkers related to auto-immune diseases, using Machine Learning methods**
+> *This repository will contain all the relevant steps and commands to follow in order to identify biomarkers related to auto-immune diseases, using Machine Learning methods*
 
 
 ### The data used in this repository are from the research paper *"Longitudinal profiling of human blood transcriptome in healthy and lupus pregnancy"*.
