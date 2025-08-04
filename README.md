@@ -4,7 +4,7 @@
 
 ## Info about the dataset
 
-### The data used in this repository are from the research paper *"Longitudinal profiling of human blood transcriptome in healthy and lupus pregnancy"*.
+### The data used in this repository is from the research paper *"Longitudinal profiling of human blood transcriptome in healthy and lupus pregnancy"*.
 
 ### The raw microarray dataset described in the manuscript is deposited in the NCBI GEO (accession no. GSE108497), but can be also be found processed in the Autoimmune Diseases Explorer (ADEx), along with the metadata file.
 
