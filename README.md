@@ -2,6 +2,7 @@
 
 > *This repository will contain all the relevant steps and commands to follow in order to identify biomarkers related to auto-immune diseases, using Machine Learning methods*
 
+# Info about the dataset
 
 ### The data used in this repository are from the research paper *"Longitudinal profiling of human blood transcriptome in healthy and lupus pregnancy"*.
 
@@ -12,4 +13,7 @@
 - Research Paper Source: [Longitudinal profiling of human blood transcriptome in healthy and lupus pregnancy](https://doi.org/10.1084/jem.20190185)
 - GEO Accession Display: [Series GSE108497](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE108497)
 - Autoimmune Diseases Explorer: [ADEx](https://adex.genyo.es/)
-    
+
+# Goal of this project
+
+# What have I done so far
