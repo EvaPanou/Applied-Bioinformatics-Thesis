@@ -1,1 +1,3 @@
+# Purpose of this folder
+
 The Archive folder is the place to store all things that I might want to delete by the end of this, maybe older versions of files, but, I do not want to part with them yet. Since , you know, they might be useful.
