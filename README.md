@@ -41,3 +41,6 @@ The aim of this project is to identify transcriptomic biomarkers of the autoimmu
 13. External Test Validation
 14. Negative Control Analysis
 
+## Description of this Git Repository
+This Git Repository is consisted by folders in numerical order based on their purpose in the analysis, containing either the data used on the project, or the code to reach the expected - or unexpected ;) - outcome. Each folder contains of more files, or folders, and contains a README.md file to offer a more detailed description of its specificities. 
+
