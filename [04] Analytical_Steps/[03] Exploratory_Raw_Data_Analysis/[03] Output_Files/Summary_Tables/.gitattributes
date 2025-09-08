@@ -1,1 +1,9 @@
 *.tsv filter=lfs diff=lfs merge=lfs -text
+04_technical_outlier_samples.tsv filter=lfs diff=lfs merge=lfs -text
+05_df_no_outliers.tsv filter=lfs diff=lfs merge=lfs -text
+06_highly_expressed_genes.tsv filter=lfs diff=lfs merge=lfs -text
+07_low_expressed_genes.tsv filter=lfs diff=lfs merge=lfs -text
+08_df_no_low_genes.tsv filter=lfs diff=lfs merge=lfs -text
+01_outlier_samples.tsv filter=lfs diff=lfs merge=lfs -text
+02_outlier_deviation_from_median.tsv filter=lfs diff=lfs merge=lfs -text
+03_extreme_outliers.tsv filter=lfs diff=lfs merge=lfs -text
