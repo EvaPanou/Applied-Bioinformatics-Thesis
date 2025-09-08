@@ -1,1 +1,11 @@
 *.png filter=lfs diff=lfs merge=lfs -text
+03_total_density_per_tp.png filter=lfs diff=lfs merge=lfs -text
+06_gene_var_distribution.png filter=lfs diff=lfs merge=lfs -text
+02_boxplot_no_outliers.png filter=lfs diff=lfs merge=lfs -text
+02_histogram_expression_per_sample.png filter=lfs diff=lfs merge=lfs -text
+04_density_per_condition_per_tp.png filter=lfs diff=lfs merge=lfs -text
+04_total_density_all_samples.png filter=lfs diff=lfs merge=lfs -text
+05_density_per_condition_per_tp.png filter=lfs diff=lfs merge=lfs -text
+05_gene_var_distribution.png filter=lfs diff=lfs merge=lfs -text
+01_boxplot_expression_per_sample.png filter=lfs diff=lfs merge=lfs -text
+03_histogram_expression_per_sample.png filter=lfs diff=lfs merge=lfs -text
