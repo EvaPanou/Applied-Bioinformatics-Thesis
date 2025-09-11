@@ -25,11 +25,12 @@ The aim of this project is to identify transcriptomic biomarkers of the autoimmu
 2. Exploratory Metadata Analysis
 3. Exploratory Raw Data Analysis
 4. Raw Data Preprocessing
-5. Initial PCA
-6. Post-PCA Analysis
+5. DE & Further Processing
+6. Initial PCA
+7. Post-PCA Analysis
 
 ### Upcoming Tasks
-7. DE & Further Processing
+
 8. Proof-of-Concept - ML using DE-selected genes as features
 9. Train-Test Split
 10. Feature Engineering for ML
