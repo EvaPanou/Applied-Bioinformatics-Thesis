@@ -31,10 +31,11 @@ The aim of this project is to identify transcriptomic biomarkers of the autoimmu
 
 ### Upcoming Tasks
 
-8. Proof-of-Concept - ML using DE-selected genes as features
-9. Train-Test Split
-10. Feature Engineering for ML
-11. ML Experiments with Top-10 Genes via:
+8. Validation of Biological Significance
+9. Proof-of-Concept - ML using DE-selected genes as features
+10. Train-Test Split
+11. Feature Engineering for ML
+12. ML Experiments with Top-10 Genes via:
 - DE
 - PCA
 - Univariate Analysis
