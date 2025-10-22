@@ -26,7 +26,7 @@ To achieve the above objectives, the analytical pipeline includes:
 
 ## Literature Review of 3 Similar Papers
 
-The 3 Papers chosen for this are the: 
+The 3 Papers chosen for this are the following, which are also included, in the dame numerical order, in pdf format within this folder: 
 1.	**Chowdhury et al, 2023:** *Drought‑responsive genes in tomato: meta‑analysis of gene expression using machine learning*
 2.	**Mishra et al, 2022:** *Longitudinal multi‑omics analysis identifies early blood‑based predictors of anti‑TNF therapy response in inflammatory bowel disease*
 3.	**Lefol et al, 2023:** *TiSA: TimeSeriesAnalysis––a pipeline for the analysisof longitudinal transcriptomics data*
