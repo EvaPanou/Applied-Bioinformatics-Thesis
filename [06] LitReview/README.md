@@ -3,7 +3,10 @@
 The LitReview folder is the place to present the goal of my work, expand on what I have done and compare with how similar research has tackled analogous questions in the past
 
 ## Goal of my work
-The specific objective of this project is to identify transcriptomic biomarkers of SLE in pregnant women through the application of machine-learning approaches to longitudinal microarray expression data from healthy and SLE individuals. The ultimate goal is to facilitate early and personalized monitoring of disease activity in individuals at risk of developing SLE, and attempting to utilise one of the many microarray datasets accumulated over past decades that remain an invaluable resource. To achieve these objectives, the analytical pipeline includes:
+The specific objective of this project is to identify transcriptomic biomarkers of SLE in pregnant women through the application of machine-learning approaches to longitudinal microarray expression data from healthy and SLE individuals. The ultimate goal is to facilitate early and personalized monitoring of disease activity in individuals at risk of developing SLE, and attempting to utilise one of the many microarray datasets accumulated over past decades that remain an invaluable resource. 
+
+## What I have done
+To achieve the above objectives, the analytical pipeline includes:
 * Data Preprocessing and Quality Control
   - Exploration of both metadata and gene-expression data.
   - Detection and removal of outliers.
@@ -20,8 +23,6 @@ The specific objective of this project is to identify transcriptomic biomarkers 
 * Model Evaluation and Validation
   - Assessment of model performance using quantitative metrics (e.g., accuracy, precision, recall, F1-score).
   - Execution of a Negative Control for Accuracy to verify robustness and ensure the generalizability of results.
-
-## What I have done
 
 ## Literature Review of 3 Similar Papers
 
