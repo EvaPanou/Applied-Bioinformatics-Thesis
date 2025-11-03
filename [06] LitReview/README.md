@@ -10,19 +10,17 @@ To achieve the above objectives, the analytical pipeline includes:
 * Data Preprocessing and Quality Control
   - Exploration of both metadata and gene-expression data.
   - Detection and removal of outliers.
-  - Filtering of low-expressed and low-variance genes to reduce noise.
+  - Filtering of low-expressed to reduce noise.
 * Differential Expression Analysis (DEA)
-  - Identification of differentially expressed genes (DEGs) across both condition (SLE vs. healthy) and time points.
+  - Application of the LIMMA linear modeling framework for the identification of differentially expressed genes (DEGs) across both condition (SLE vs. healthy) and time points.
+      - Condition-based comparisons: SLE vs. Healthy at each gestational time point.
+      - Temporal comparisons: sequential time-point contrasts within each condition. 
   - Application of appropriate multiple-testing correction to control false discovery rates.
+  - Construction of union DEG heatmaps with hierarchical clustering and clear annotation of condition and time point.
 * Feature Optimization and Dimensionality Reduction
   - Integration of all identified DEGs into a unified feature set.
-  - Implementation of Principal Component Analysis (PCA) to visualize data structure and assess sample separation.
-* Machine Learning Model Development
-  - Splitting the dataset into training and testing subsets.
-  - Training and comparison of multiple ML classifiers to predict disease status from gene-expression patterns.
-* Model Evaluation and Validation
-  - Assessment of model performance using quantitative metrics (e.g., accuracy, precision, recall, F1-score).
-  - Execution of a Negative Control for Accuracy to verify robustness and ensure the generalizability of results.
+  - Filtering of top 5% most variable genes to refine machine learning input features.
+  - Implementation of Principal Component Analysis (PCA) to visualize data structure and assess sample separation (both before and after DEG anaylisis)
 
 ## Selection of 3 Similar Papers
 
@@ -40,3 +38,11 @@ The TiSA pipeline complements this by performing differential expression via DES
 Lastly, Chowdhury et al. does something similar to the above, by emphasizing robust timepoint-specific DEG identification with edgeR (tight FDR and fold change cutoffs), and they also built a heatmap to interpret the longitudinal change of DEGs per timepoint. They assembled a global, non-redundant set of DEGs from across all timepoints, and filtered by expression variance (>95%) in order to produce a high-confidence feature matrix suitable for machine learning, thereby rigorously capturing both immediate and delayed responses but without explicit continuous modeling. 
 ### CONCLUSION
 Based on these approaches, a strong course of action for a longitudinal transcriptomic project would be to implement a dual DE strategy — combining pairwise/conditional and longitudinal/temporal modeling (Mishra et al., TiSA), visualizing {and clustering expression patterns}, and finally constructing and variance-filtering a comprehensive set of DEGs (Chowdhury et al.) for downstream machine learning and functional analysis; this integrated strategy maximizes sensitivity to dynamic biological signals while supporting robust, interpretable biomarker selection.​
+
+## NEXT STEPS
+* Machine Learning Model Development
+  - Splitting the dataset into training and testing subsets.
+  - Training and comparison of multiple ML classifiers to predict disease status from gene-expression patterns.
+* Model Evaluation and Validation
+  - Assessment of model performance using quantitative metrics (e.g., accuracy, precision, recall, F1-score).
+  - Execution of a Negative Control for Accuracy to verify robustness and ensure the generalizability of results.
