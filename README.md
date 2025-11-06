@@ -20,3 +20,10 @@ The aim of this project is to identify transcriptomic biomarkers of the autoimmu
 ## Description of this Git Repository
 This Git Repository is consisted by folders in numerical order based on their purpose in the analysis, containing either the data used on the project, or the code to reach the expected - or unexpected ;) - outcome. Each folder contains of more files, or folders, and contains a README.md file to offer a more detailed description of its specificities. 
 
+## FOLDERS UNDER CURRENT PROCESSING
+
+*### [06] LitReview
+This folder contains the Literature Review that took place in order to move forward with the Differential Expression Analysis step. It analysed three papers, the first two of which processed longitudinal gene expression datasets from tomatoes, or patients with inflammatory bowel disease. The third provided a comprehensive and detailed analytical pipeline used for the processing of RNAseq or Microarray longitudinal data. 
+
+*### [07] LIMMA: DE analysis and post-processing steps
+This folder contains the DE analysis that took place in R using the LIMMA package. It also contains a file with post-processing steps, including PCA and Biological validation of the DE genes that where found. The post-processing steps are necessary in order to know if the list of genes is appropriate for the next step which is Machine Learning. 
