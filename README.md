@@ -22,8 +22,8 @@ This Git Repository is consisted by folders in numerical order based on their pu
 
 ## FOLDERS UNDER CURRENT PROCESSING
 
-*[06] LitReview
+- **[06] LitReview**
 This folder contains the Literature Review that took place in order to move forward with the Differential Expression Analysis step. It analysed three papers, the first two of which processed longitudinal gene expression datasets from tomatoes, or patients with inflammatory bowel disease. The third provided a comprehensive and detailed analytical pipeline used for the processing of RNAseq or Microarray longitudinal data. 
 
-*[07] LIMMA: DE analysis and post-processing steps
+- **[07] LIMMA: DE analysis and post-processing steps**
 This folder contains the DE analysis that took place in R using the LIMMA package. It also contains a file with post-processing steps, including PCA and Biological validation of the DE genes that where found. The post-processing steps are necessary in order to know if the list of genes is appropriate for the next step which is Machine Learning. 
