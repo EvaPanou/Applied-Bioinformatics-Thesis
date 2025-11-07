@@ -49,7 +49,7 @@ Rscript limma_deg_pipeline.R
 - [A_SLE_vs_Healthy]
 - [B_Temporal_adjacent]
 - [Enrichment]
-- [ML]
+- [DE_Genes]
 - [Visualization]
 
 ## 🧪 Methods & Stats (Summary)
