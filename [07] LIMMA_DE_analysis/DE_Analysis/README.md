@@ -48,3 +48,17 @@ the annotated gene clusters obtained from the ComplexHeatmap
 | Downregulated_cluster_genes.tsv | Step 7 (clusters) and Step 10 (global model) | limma ANOVA-style interaction (F-test); k-means labeling on z-scored expression | Genes from heatmap cluster labeled 'Down-regulated' (k-means derived). |
 | Global_Time_by_Condition_Ftest.tsv | Step 7 (clusters) and Step 10 (global model) | limma ANOVA-style interaction (F-test); k-means labeling on z-scored expression | Global F-test across Condition×Time interaction terms (limma). |
 | Heatmap_GeneClusters_Annotated.tsv | Step 7 (clusters) and Step 10 (global model) | limma ANOVA-style interaction (F-test); k-means labeling on z-scored expression | Per-gene mapping to heatmap row-cluster labels (Up/Mixed/Down). |
+---
+
+**Table: Global_Time_by_Condition_Ftest.tsv**  
+
+This table contains the results of a genome-wide F-test for the **Condition × Time** interaction term. The test identifies genes whose expression trajectories across gestation differ significantly between SLE and healthy groups. High-ranking genes in this list include multiple **interferon-regulated** and **neutrophil degranulation-associated** genes, mirroring the clusters identified in the heatmaps. This analysis extends pairwise observations by confirming that the **temporal shape** of expression change—not merely the mean difference—is altered in SLE pregnancies. Such trajectory-level divergence underscores the chronic and fluctuating nature of immune activation in SLE, even under the immune-tolerant conditions of gestation.
+
+
+**Table: Heatmap_GeneClusters_Annotated.tsv**  
+**Table: Downregulated_cluster_genes.tsv**  
+
+The annotated cluster table maps each gene from the heatmap to its corresponding expression pattern group. Notably, the **Down-regulated genes** subset includes immunomodulatory and metabolic regulators such as *CD79A*, *PTPRC*, and *BCL2A1*, implicating transient suppression of adaptive immunity and lymphocyte differentiation in both groups, but more strongly in SLE. This may represent a compensatory mechanism attempting to counterbalance overactive innate immunity. However, consistent with recent findings, this adaptive repression appears insufficient to restore immune homeostasis.  
+
+The maintenance of such downregulated networks through gestation and postpartum suggests **a persistent skewing of immune equilibrium**, wherein upregulated innate pathways are only partially offset by diminished adaptive responses, potentially contributing to heightened risk of flare or placental dysfunction.
+
