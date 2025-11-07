@@ -20,8 +20,8 @@ It also:
 
 ## Run
 ```bash
-Rscript limma_deg_pipeline.R
-
+Rscript limma_deg_pipeline.R 
+```
 ---
 
 # Extended Results Mapping
