@@ -1,4 +1,4 @@
-# Folder: `A_SLE_vs_Healthy/
+# Folder: A_SLE_vs_Healthy/
 
 This folder contains **per-timepoint differential expression** results from the model:
 
