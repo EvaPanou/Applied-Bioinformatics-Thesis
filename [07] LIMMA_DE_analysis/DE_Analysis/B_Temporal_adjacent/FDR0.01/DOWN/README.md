@@ -61,7 +61,7 @@ These files list **genes that decrease** in expression between adjacent pregnanc
 
 ---
 
-## Academic interpretation
+## Interpretation
 
 1. **Healthy pregnancies:** Virtually no significant downregulation is observed, reaffirming the **stability of immune gene expression** in healthy women across gestation.
 
@@ -70,25 +70,3 @@ These files list **genes that decrease** in expression between adjacent pregnanc
 3. **Absence of large-scale decreases:** The scarcity of strong negative logFCs suggests that **SLE pathogenesis is dominated by sustained upregulation**, rather than suppression, of immune pathways.
 
 4. **Comparison with UP genes:** When compared to the FDR0.01/UP set, these results indicate that **transcriptional changes in SLE are unidirectional** — primarily upward activation with limited compensatory downregulation.
-
-
----
-
-## Suggested follow‑ups
-
-- Check **paired UP and DOWN** gene lists per comparison to visualize net transcriptional shifts.
-
-- Use **enrichment analysis** on the small downregulated subsets to see whether they cluster into suppressive or metabolic processes.
-
-- Include these in **temporal heatmaps** alongside UP genes to illustrate directional imbalance in SLE regulation.
-
-
----
-
-## Thesis discussion points
-
-- The near-absence of broad downregulation confirms that SLE’s transcriptomic state is **chronically activated** rather than oscillatory.
-
-- Healthy pregnancies maintain expression equilibrium across stages, emphasizing that pregnancy itself does **not** produce transcriptional instability.
-
-- These findings strengthen the conclusion that **SLE-specific immune activation is persistent and minimally counterbalanced** during gestation.
