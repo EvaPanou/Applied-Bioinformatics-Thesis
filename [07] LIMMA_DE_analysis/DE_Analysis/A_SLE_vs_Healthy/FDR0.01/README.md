@@ -79,7 +79,7 @@ These are genes passing very strict thresholds (False Discovery Rate < 1% and a 
 
 ---
 
-## Academic conclusions
+## Conclusions
 
 1. **Persistent interferon activation:** The upregulated genes are overwhelmingly **interferon-stimulated genes (ISGs)** — e.g., *IFI44L, IFI27, IFIT3, RSAD2, ISG15, MX1*. Their presence at every timepoint confirms a **chronic interferon-driven immune activation** in SLE pregnancies.
 
@@ -90,25 +90,3 @@ These are genes passing very strict thresholds (False Discovery Rate < 1% and a 
 4. **Statistical strength:** Because these genes remain significant at FDR < 0.01, they represent **extremely confident findings**, suitable for mechanistic interpretation and biomarker development.
 
 5. **Biological meaning:** These DEGs implicate *Type I interferon signaling, antiviral response, cytokine-mediated signaling,* and *immune effector activation* — pathways central to SLE pathogenesis.
-
-
----
-
-## Suggested downstream analyses
-
-- Run **pathway enrichment (GO/KEGG/Reactome)** using these FDR 0.01 DEGs for high-specificity biological interpretation.
-
-- Compare overlaps across timepoints with **UpSet plots** to show persistence of the SLE signature.
-
-- Use these high-confidence DEGs to seed your **ML feature selection**, ensuring stable predictive markers.
-
-
----
-
-## Notes for interpretation in your thesis
-
-- Emphasize that **no timepoint shows remission to a healthy-like expression pattern**, underscoring sustained immune activation in SLE pregnancies.
-
-- This pattern parallels previous reports in non-pregnant SLE patients, confirming that pregnancy does not suppress the canonical interferon response.
-
-- These genes form the **molecular backbone** of the SLE signature across your entire dataset.
