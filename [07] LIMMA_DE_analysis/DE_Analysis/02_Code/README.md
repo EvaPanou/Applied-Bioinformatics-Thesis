@@ -36,11 +36,11 @@ Rscript limma_deg_pipeline.R
 
 ## 🔗 Output Subfolders
 
-- [A_SLE_vs_Healthy]
-- [B_Temporal_adjacent]
-- [Enrichment]
-- [DE_Genes]
-- [Visualization]
+- A_SLE_vs_Healthy/
+- B_Temporal_adjacent/
+- Enrichment/
+- DE_Genes/
+- Visualization/
 
 ## 🧪 Methods & Stats (Summary)
 
