@@ -63,7 +63,7 @@ Compared to the FDR0.01 subset, these results include additional but still stati
 
 ---
 
-## Academic interpretation
+## Interpretation
 
 1. **Healthy pregnancies:** Exhibit very few downregulated genes, indicating continued **immune stability** throughout pregnancy.
 
