@@ -79,7 +79,7 @@ These DEGs are defined by False Discovery Rate < 5% and a minimum twofold change
 
 ---
 
-## Academic conclusions
+## Conclusions
 
 1. **Reproducible interferon-driven signature:** At this more inclusive FDR (5%), we capture additional interferon-stimulated genes beyond those passing 1%, confirming that the **core biological signal is robust**.
 
@@ -90,27 +90,3 @@ These DEGs are defined by False Discovery Rate < 5% and a minimum twofold change
 4. **Added biological depth:** At FDR 0.05, supplementary pathways emerge (e.g., *cytokine-mediated signaling, antigen processing, neutrophil activation*), expanding the immune context of the response.
 
 5. **Complementary to FDR 0.01 results:** These DEGs are not contradictory but rather **an extended view** of the same underlying disease biology — providing a richer feature pool for pathway analysis and machine learning.
-
-
----
-
-## Suggested downstream analyses
-
-- Compare these results directly with the stricter FDR 0.01 set to distinguish **core vs peripheral** components of the SLE signature.
-
-- Use this broader DEG set for **GO/KEGG enrichment**, expecting to see interferon and cytokine terms with higher gene counts.
-
-- Include these genes in **UpSet plots** to visualize overlap across pregnancy stages.
-
-- Use both FDR0.01 and FDR0.05 lists to test ML model robustness to feature selection thresholds.
-
-
----
-
-## Thesis interpretation guidance
-
-- The **qualitative pattern is identical** to the FDR 0.01 subset — SLE remains defined by heightened antiviral and interferon activity.
-
-- Quantitatively, this threshold reveals a **wider network of immune-related genes**, providing additional targets for discussion and enrichment.
-
-- In your Results section, emphasize that **statistical stringency (FDR 1% vs 5%) does not alter biological interpretation**, underscoring reproducibility and robustness.
