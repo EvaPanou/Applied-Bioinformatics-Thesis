@@ -126,7 +126,7 @@ When we look at the **top genes** by p‑value in each file, we repeatedly see c
 **Interpretation in one sentence:** SLE samples show a strong, recurring **interferon/antiviral response program** relative to Healthy controls at every pregnancy stage and postpartum.
 
 
-## Academic conclusions you can state from these files
+## Conclusions
 
 1. **Consistency across gestation:** The SLE‑associated transcriptional program is detectable at <16 weeks and persists through 32–40 weeks and postpartum.  
 
@@ -137,23 +137,3 @@ When we look at the **top genes** by p‑value in each file, we repeatedly see c
 4. **Statistical strength:** The fact that your UP counts are the same at FDR 0.05 and 0.01 shows the effect is **not marginal**—these genes pass very stringent multiple‑testing correction.  
 
 5. **Clinical angle (hypothesis‑level):** A stable interferon‑high transcriptomic state through pregnancy could relate to SLE disease activity and risk; this justifies downstream **pathway enrichment** and **predictive modeling** using these features.
-
-
-## How to use these outputs downstream
-
-- Use the **`_UP_FDR0.05_` / `_UP_FDR0.01_`** files (same folder) when you want the filtered gene lists for plots or enrichment.
-
-- Feed the **union of A‑contrast DEGs** into your ML step (your script already exports `ML_Features_AllDEGs.tsv`).
-
-- Run GO/KEGG/Reactome enrichment on these UP genes; you should recover interferon and antiviral pathways prominently.
-
-- Compare across timepoints with **UpSet plots** to document the stability of the signature.
-
-
-## Caveats / good‑practice notes
-
-- **Effect‑size threshold:** |logFC|>1 is strict; relaxing to 0.5 can reveal additional, biologically relevant genes while keeping FDR control.
-
-- **Sample balance:** Always check counts per (Condition × Time) cell to ensure contrasts aren’t driven by sparse groups.
-
-- **Blocking:** You accounted for repeated measures via `duplicateCorrelation`, which is the right approach for longitudinal donors.
