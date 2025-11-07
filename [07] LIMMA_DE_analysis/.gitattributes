@@ -1,3 +1,4 @@
 *tsv filter=lfs diff=lfs merge=lfs -text
 README.md filter=lfs diff=lfs merge=lfs -text
 *png filter=lfs diff=lfs merge=lfs -text
+*.r linguist-language=R
