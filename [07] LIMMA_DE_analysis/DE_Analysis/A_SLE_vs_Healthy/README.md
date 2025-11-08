@@ -53,7 +53,7 @@ Each `A_FULL_...tsv` file is the **complete limma topTable** for that single con
 
 
 
-## The biological signal you’re seeing (beginner‑friendly)
+## Significant Gene expresion
 
 When we look at the **top genes** by p‑value in each file, we repeatedly see classic **Type I interferon‑stimulated genes (ISGs)**. Examples include:
 
