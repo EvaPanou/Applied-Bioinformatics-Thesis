@@ -50,13 +50,13 @@ the annotated gene clusters obtained from the ComplexHeatmap
 | Heatmap_GeneClusters_Annotated.tsv | Step 7 (clusters) and Step 10 (global model) | limma ANOVA-style interaction (F-test); k-means labeling on z-scored expression | Per-gene mapping to heatmap row-cluster labels (Up/Mixed/Down). |
 ---
 
-**Table: Global_Time_by_Condition_Ftest.tsv**  
+*Table: Global_Time_by_Condition_Ftest.tsv*  
 
 This table contains the results of a genome-wide F-test for the **Condition × Time** interaction term. The test identifies genes whose expression trajectories across gestation differ significantly between SLE and healthy groups. High-ranking genes in this list include multiple **interferon-regulated** and **neutrophil degranulation-associated** genes, mirroring the clusters identified in the heatmaps. This analysis extends pairwise observations by confirming that the **temporal shape** of expression change—not merely the mean difference—is altered in SLE pregnancies. Such trajectory-level divergence underscores the chronic and fluctuating nature of immune activation in SLE, even under the immune-tolerant conditions of gestation.
 
 
-**Table: Heatmap_GeneClusters_Annotated.tsv**  
-**Table: Downregulated_cluster_genes.tsv**  
+*Table: Heatmap_GeneClusters_Annotated.tsv*  
+*Table: Downregulated_cluster_genes.tsv* 
 
 The annotated cluster table maps each gene from the heatmap to its corresponding expression pattern group. Notably, the **Down-regulated genes** subset includes immunomodulatory and metabolic regulators such as *CD79A*, *PTPRC*, and *BCL2A1*, implicating transient suppression of adaptive immunity and lymphocyte differentiation in both groups, but more strongly in SLE. This may represent a compensatory mechanism attempting to counterbalance overactive innate immunity. However, consistent with recent findings, this adaptive repression appears insufficient to restore immune homeostasis.  
 
