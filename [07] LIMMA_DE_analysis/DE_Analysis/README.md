@@ -1,4 +1,4 @@
-# LIMMA Timecourse (Illumina microarray)
+# LIMMA Timeseries (Illumina microarray)
 
 This pipeline finds differentially expressed genes (DEGs) in two ways:
   
