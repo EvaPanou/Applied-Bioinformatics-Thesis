@@ -6,7 +6,7 @@ This section summarizes and interprets the principal transcriptomic patterns vis
 
 ## 1. Global Expression Structure (Heatmap Analysis)
 
-**Figure: Heatmap_A_DEG_Union_FDR0.05.png**  
+*Figure: Heatmap_A_DEG_Union_FDR0.05.png*  
 
 The heatmap visualizes the global transcriptional configuration of all genes differentially expressed (FDR < 0.05) between SLE and healthy pregnancies across timepoints. Rows correspond to genes, columns to samples arranged by Condition (SLE → Healthy) and gestational progression (<16 weeks → postpartum). Color intensity represents standardized expression (z-score per gene).  
 
@@ -20,8 +20,8 @@ Collectively, it reveals reveal that the **SLE transcriptional landscape during 
 
 ## 2. Intersecting Differential Gene Sets Across Contrasts (UpSet Analysis — Program A)
 
-**Figure: UpSet_A_UP_FDR0.05.png**  
-**Figure: UpSet_A_DN_FDR0.05.png**  
+*Figure: UpSet_A_UP_FDR0.05.png*  
+*Figure: UpSet_A_DN_FDR0.05.png*  
 
 The UpSet plots summarize intersections of DE gene lists across multiple pairwise contrasts (SLE vs. Healthy at each timepoint). In **UpSet_A_UP_FDR0.05.png**, the largest intersection, comprising approximately 30 genes, represents a **core set of genes consistently upregulated in SLE** throughout gestation. Functional annotation of this core (from enrichment analysis) highlights **type I interferon signaling**, **viral defense responses**, and **neutrophil activation**, reinforcing previous reports of sustained ISG expression in active SLE and during complicated pregnancies.  
 
@@ -31,8 +31,8 @@ Conversely, **UpSet_A_DN_FDR0.05.png** shows sparse and heterogeneous intersecti
 
 ## 3. Temporal Expression Dynamics Within Conditions (UpSet Analysis — Program B)
 
-**Figure: UpSet_B_UP_FDR0.05.png**  
-**Figure: UpSet_B_DN_FDR0.05.png**  
+*Figure: UpSet_B_UP_FDR0.05.png*  
+*Figure: UpSet_B_DN_FDR0.05.png*  
 
 The second pair of UpSet plots illustrates **temporal differential expression within each condition**, comparing adjacent gestational intervals (“adjacent” mode). In **UpSet_B_DN_FDR0.05.png**, large intersections of downregulated genes are evident between late gestation and postpartum stages, in both SLE and healthy cohorts. This widespread downregulation likely corresponds to a **global postpartum immune contraction**, as maternal physiology transitions back from a pregnancy-adapted immune state. The magnitude of this contraction, however, appears more pronounced in the SLE group, suggesting an **overcorrection or incomplete normalization** of immune gene expression.  
 
