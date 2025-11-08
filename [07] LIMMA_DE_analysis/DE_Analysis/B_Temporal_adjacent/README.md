@@ -90,7 +90,7 @@ Each file tests **how gene expression changes over time** separately for SLE and
 
 ---
 
-## Academic interpretation
+## Interpretation
 
 1. **Healthy pregnancies:** Show minimal temporal DEGs, confirming that pregnancy progression in healthy women is associated with **physiological but not large-scale transcriptional immune shifts**.
 
@@ -101,27 +101,3 @@ Each file tests **how gene expression changes over time** separately for SLE and
 4. **Temporal pattern:** The lack of reversal to a healthy-like profile postpartum indicates **persistent immune dysregulation** after delivery.
 
 5. **Biological meaning:** These within-SLE changes may correspond to **flare modulation or treatment response**, but the underlying interferon signature remains consistent.
-
-
----
-
-## How to use these results
-
-- Combine these temporal DEGs with the `A_SLE_vs_Healthy` contrasts to separate **disease-specific effects** from **time-driven physiological effects**.
-
-- Visualize overlaps using **UpSet plots** or **heatmaps** to reveal which genes fluctuate only in SLE.
-
-- Use these DEGs to explore **longitudinal biomarker stability**, or as input for **time-series machine learning**.
-
-- Focus follow-up enrichment on SLE contrasts with larger DEG counts (e.g., late vs early or postpartum vs late pregnancy).
-
-
----
-
-## Thesis discussion points
-
-- Healthy pregnancies maintain transcriptomic homeostasis; SLE shows moderate dynamic regulation but no normalization to healthy levels.
-
-- These results support the concept of **pregnancy as a physiological stress test** revealing immune inflexibility in SLE.
-
-- Combined with the constant interferon activity from the `A_` contrasts, these findings imply that SLE disease activity is **chronic and resistant to gestational immunomodulation**.
