@@ -1,5 +1,8 @@
 # README — Visualization_PCA_Volcano_MA.R
 
+### important
+*"In the PCA based on the LIMMA-derived DEG subset, SLE and Healthy samples separate primarily along PC2 (22.5% of total variance), indicating that disease status is captured in the second principal component. PC1 (36.4%) mainly reflects other biological or technical sources of variation, such as interindividual heterogeneity or gestational stage. In contrast, when using the larger consensus DEG set (500 genes), disease status becomes the dominant source of variance (PC1 = 37.9%), resulting in stronger visual separation between groups."*
+
 This document accompanies `Visualization_PCA_Volcano_MA.R` and provides **academic-style** context and practical instructions for generating **diagnostic visualizations** from the SLE pregnancy transcriptomic dataset. The script produces (i) a **volcano plot** and **MA plot** from a LIMMA `FULL` table, and (ii) two **PCAs**: one using the **entire expression matrix** and one restricted to **DEG genes**.
 
 ---
