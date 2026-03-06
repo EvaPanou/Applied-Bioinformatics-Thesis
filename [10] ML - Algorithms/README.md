@@ -1,0 +1,1 @@
+The goal of this comparison of ML algorithms is to see which method results in the most reliable gene signature for the differentiation of Lupus vs Healthy
