@@ -431,7 +431,7 @@ run_clusterprofiler_on_row_clusters <- function(outdir, background_symbols = NUL
     df <- data.table::fread(f)
     gene_symbols <- unique(df$Gene)
     genes_entrez <- map_symbols_to_entrez(gene_symbols)
-    if (length(genes_entrez) < 5) { message("Skip ", cl_lab, " (too few mapped genes)"); next }
+    #if (length(genes_entrez) < 5) { message("Skip ", cl_lab, " (too few mapped genes)"); next }
     
     # GO (BP/CC/MF)
     for (ont in c("BP","CC","MF")) {
