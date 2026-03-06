@@ -22,6 +22,10 @@ This Git Repository is consisted by folders in numerical order based on their pu
 
 ## FOLDERS THAT DO NOT CONTAIN ANY SCIRPTS OR RESULTS
 
+- **[05] Supplementary_Material**
+
+This folder includes research papers or their supplementary material, based on which I either developed part of my analysis (Step 07), or for result validation at the end of the analysis - that the significant genes identified were supported by references or not.
+
 - **[06] LitReview**
 
 This folder contains the Literature Review that took place in order to move forward with the Differential Expression Analysis step. It analysed three papers, the first two of which processed longitudinal gene expression datasets from tomatoes, or patients with inflammatory bowel disease. The third provided a comprehensive and detailed analytical pipeline used for the processing of RNAseq or Microarray longitudinal data. 
