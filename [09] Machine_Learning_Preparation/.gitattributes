@@ -9,7 +9,8 @@
 *.xlsx filter=lfs diff=lfs merge=lfs -text
 
 # Notebooks
-*.ipynb filter=lfs diff=lfs merge=lfs -text
+# *.ipynb filter=lfs diff=lfs merge=lfs -text
+*.ipynb text
 
 # Binary data objects
 *.rds filter=lfs diff=lfs merge=lfs -text
