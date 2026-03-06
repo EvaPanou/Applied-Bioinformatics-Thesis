@@ -1,0 +1,20 @@
+# Images / plots
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.pdf filter=lfs diff=lfs merge=lfs -text
+
+# Data tables
+*.tsv filter=lfs diff=lfs merge=lfs -text
+*.csv filter=lfs diff=lfs merge=lfs -text
+*.xlsx filter=lfs diff=lfs merge=lfs -text
+
+# Notebooks
+*.ipynb filter=lfs diff=lfs merge=lfs -text
+
+# Binary data objects
+*.rds filter=lfs diff=lfs merge=lfs -text
+*.pkl filter=lfs diff=lfs merge=lfs -text
+
+# Scripts (keep as normal Git text files)
+*.R text
+*.py text
