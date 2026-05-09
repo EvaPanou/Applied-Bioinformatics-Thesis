@@ -1,0 +1,34 @@
+{
+  "auc": 0.9220779220779222,
+  "auc_ci_lower": 0.8631234185222673,
+  "auc_ci_upper": 0.963210624417521,
+  "n_auc_bootstrap": 200,
+  "sensitivity": 0.8285714285714286,
+  "specificity": 0.8484848484848485,
+  "accuracy": 0.8349514563106796,
+  "f1": 0.8721804511278195,
+  "tp": 58,
+  "fp": 5,
+  "fn": 12,
+  "tn": 28,
+  "n_positive": 70,
+  "n_negative": 33,
+  "n_samples": 103,
+  "best_params": {
+    "max_depth": 5,
+    "min_samples_leaf": 1
+  },
+  "inner_cv_auc": 0.9000387096774194,
+  "panel": [
+    "IFI44L",
+    "USP18",
+    "EIF2AK2",
+    "PARP14",
+    "GALM",
+    "BATF2"
+  ],
+  "classifier": "rf",
+  "fs_method": "boruta",
+  "final_stability_threshold": 0.8,
+  "final_pearson_threshold": 0.9
+}
