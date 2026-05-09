@@ -1,0 +1,310 @@
+This repository contains all python script files used in this pipeline.
+
+# Code architecture
+
+This folder contains the full implementation of the donor-aware SLE
+diagnostic pipeline, from data loading and donor-level splitting to
+feature-selection benchmarking, final panel construction, held-out
+evaluation, and figure generation.[file:1720][file:1721][file:1722][file:1723][file:1724]
+
+At a high level:
+
+- `sle_pipeline-5.py` is the workflow controller you run.
+- `configurations.py` defines all paths, columns, parameters, and thresholds.
+- `requirements-4.py` manages package installation and shared imports.
+- `helper_functions-2.py` implements the core ML logic.
+- `plot_creation-3.py` generates all PNG figures from saved results.
+
+All scripts must live in the same code directory for the imports to
+work correctly.[file:1720][file:1721][file:1722][file:1723][file:1724]
+
+---
+
+## Script overview
+
+### `configurations.py`
+
+Purpose: central configuration file for paths, metadata columns, random
+seeds, cross-validation settings, feature selectors, classifier grids,
+bootstrap settings, and final-panel thresholds.[file:1720]
+
+Key elements:
+
+- Paths:
+  - `CODE_DIR`, `PROJECT_DIR`
+  - `INPUT_DIR = PROJECT_DIR / "[01] Input"`
+  - `OUTPUT_DIR = PROJECT_DIR / "[03] Output"`
+  - `DATA_PATH`, `LOG_PATH`, `FIGURES_DIR`, `TABLES_DIR`.[file:1720]
+- Metadata columns:
+  - `SAMPLE_ID_COL`, `DONOR_ID_COL`,
+    `LABEL_COL` (`Condition`), `LABEL_TEXT_COL`,
+    `TIMEPOINT_COL`, `TIMEPOINT_LABEL_COL`.
+  - Collected into `METADATA_COLUMNS` for helper functions.[file:1720]
+- Reproducibility and splits:
+  - `SEED = 42`
+  - `HOLDOUT_FRAC = 0.20`
+  - `N_OUTER_FOLDS = 5`, `N_INNER_FOLDS = 5`, `N_REPEATS = 1`.[file:1720]
+- Feature-selection settings:
+  - `FS_METHODS = ("mrmr", "lasso", "elasticnet", "svm_rfe", "rf", "boruta")`
+  - Method-specific grids and constants:
+    `MRMR_TOP_K`, `LASSO_C_VALUES`, `ELASTICNET_L1_RATIOS`,
+    `RF_IMPORTANCE_TREES`, `SVM_RFE_MIN_FEATURES`,
+    `BORUTA_MAX_ITER`.[file:1720]
+- Classifier benchmark settings:
+  - `CLASSIFIERS = ("svm", "logreg", "rf", "xgboost", "nb", "knn")`
+  - Grids: `LR_C_VALUES`, `SVM_C_VALUES`, `SVM_GAMMA_VALUES`,
+    `RF_DEPTH_VALUES`, `RF_LEAF_VALUES`,
+    `XGB_DEPTH_VALUES`, `XGB_LR_VALUES`, `XGB_N_ESTIMATORS`,
+    `NB_VAR_SMOOTHING`, `KNN_NEIGHBORS`.[file:1720]
+- Stability and final panel:
+  - Fold-level bootstrap: `FOLD_BOOTSTRAP_ITERATIONS`,
+    `FOLD_BOOTSTRAP_TREES`, `FOLD_BOOTSTRAP_TOP_PERCENTILE`,
+    `FOLD_STABILITY_THRESHOLD`,
+    `FOLD_STABLE_FALLBACK_TOP_N`, `FOLD_MIN_STABLE_GENES`.
+  - Final panel: `N_BOOTSTRAP`,
+    `FINAL_STABILITY_THRESHOLD = 0.80`,
+    `FINAL_PEARSON_THRESHOLD = 0.90`.[file:1720]
+- Held-out evaluation:
+  - `N_PERMUTATIONS = 200`
+  - `N_HOLDOUT_BOOTSTRAP = 200`.[file:1720]
+- Plot colours:
+  - `CB_BLUE`, `CB_ORANGE`, `CB_GREY` (colour-blind friendly palette
+    reused in all figures).[file:1720][file:1722]
+
+You only edit this file when changing dataset paths, column names,
+model grids, or thresholds.[file:1720]
+
+---
+
+### `requirements-4.py`
+
+Purpose: environment/bootstrap script that makes sure the required
+Python packages are available and then exposes shared imports used by
+the rest of the codebase.[file:1721]
+
+It:
+
+- Tries to import each required package; if missing, runs
+  `pip install` in the current Python interpreter (via `sys.executable`).
+- Uses `matplotlib.use("Agg")` for safe non-interactive plotting.[file:1721]
+- Imports and re-exports:
+  - Scientific stack: `numpy`, `pandas`, `matplotlib.pyplot`.
+  - ML stack: `RandomForestClassifier`, `RFECV`,
+    `LogisticRegression`, `LogisticRegressionCV`,
+    `GridSearchCV`, `StratifiedGroupKFold`,
+    `StratifiedShuffleSplit`, `GaussianNB`,
+    `StandardScaler`, `SVC`, `XGBClassifier`, `BorutaPy`.
+  - Metrics: `accuracy_score`, `confusion_matrix`,
+    `roc_auc_score`, `roc_curve`.[file:1721]
+- Handles SHAP as optional:
+  - Tries `import shap`; if successful sets `HAS_SHAP = True` and
+    silences SHAP’s own logging noise.
+  - If install/import fails, sets `HAS_SHAP = False` so downstream
+    code can skip SHAP plots gracefully.[file:1721][file:1722]
+
+All other scripts import these objects from `requirements-4.py` rather
+than importing from scikit-learn/xgboost directly.[file:1721][file:1723]
+
+---
+
+### `helper_functions-2.py`
+
+Purpose: core analysis engine. This file contains the reusable
+functions for data loading, donor-aware splitting, feature selection,
+bootstrap stability, nested CV benchmarking, final signature
+construction, model training, held-out evaluation, and JSON/CSV
+export.[file:1723]
+
+Key functional blocks:
+
+- Basic setup:
+  - `setup_logging()`: sets up a logger that writes both to
+    `pipeline_log.txt` and the console.
+  - `set_global_seed()`: fixes Python, NumPy, and hash seeds.
+  - `ensure_output_dir()`: creates the output folder if needed.[file:1723]
+- Donor-aware cross-validation:
+  - `make_donor_stratified_cv()`: returns a `StratifiedGroupKFold`
+    object that keeps all samples from a donor together.
+  - `assert_no_donor_leakage()`: sanity-check that train/test donors
+    are disjoint.
+  - `summarise_split()`: logs basic counts for each split.[file:1723]
+- Data loading and sealed split:
+  - `load_dataset()`: reads the TSV/CSV matrix at `DATA_PATH`, checks
+    `METADATA_COLUMNS`, separates metadata from gene columns, and
+    returns `df`, `X` (gene expression), `y` (0/1 labels), and donor IDs.
+  - `make_sealed_donor_split()`: creates an 80/20 (configurable)
+    development vs held-out split at the donor level using
+    `StratifiedShuffleSplit`, then logs the split.[file:1723][file:1720]
+- Stability filtering:
+  - `run_bootstrap_rf_stability()`: donor-level bootstrap:
+    resamples donors, fits a Random Forest, tracks which genes fall in
+    the top importance percentile each iteration, and computes
+    selection frequencies. Applies thresholds and fallback logic to
+    define per-fold stable genes.[file:1723]
+- Feature selection:
+  - `run_mrmr_selector()`: runs mRMR via the external `mrmr` package
+    when available, or falls back to mutual-information relevance plus
+    correlation-based redundancy. Returns both selected genes and a
+    ranking.[file:1723]
+  - Additional selectors (lasso, elastic net, SVM-RFE, RF importance,
+    Boruta) are implemented and called from higher-level helpers
+    (e.g. `run_selector` and the outer benchmark functions).
+- Benchmark and winner selection:
+  - Functions to run outer nested CV on the development set:
+    multiple selectors × classifiers, donor-aware, recording fold-level AUC.
+  - `pick_winner()`: summarises `results_df` and picks the
+    `fs_method` + `classifier` combination with the highest mean
+    AUC.[file:1723]
+- Final signature construction:
+  - `build_final_signature()`: reruns the winning feature selector on
+    the full development set, then calls the elbow routine to choose
+    the optimal panel size based on inner-CV AUC.[file:1723]
+  - `finalise_panel(...)` (called from `sle_pipeline-5.py`): wraps
+    final stability, ranking, and Pearson-based pruning to produce the
+    final 6-gene panel and associated metadata.[file:1724][file:1723]
+- Final model training:
+  - `make_classifier()`: creates an estimator object by name
+    (`svm`, `logreg`, `rf`, `xgboost`, `nb`, `knn`).
+  - `train_final_model()`: takes the final signature, fits a scaler,
+    runs donor-aware inner CV grid-search, and returns the best
+    classifier with its hyperparameters and inner-CV AUC.[file:1723]
+- Held-out evaluation:
+  - `evaluate_on_holdout()`: applies the final model to the sealed
+    held-out subset, returning AUC, accuracy, sensitivity, specificity,
+    F1, confusion matrix, individual predictions, and probabilities.[file:1723]
+- Utilities:
+  - `save_json()`: small helper to save structured outputs as JSON.[file:1723]
+
+This script is where all donor-aware modelling and stability logic
+actually live; the main pipeline simply orchestrates these functions
+in a defined order.[file:1723][file:1724]
+
+---
+
+### `plot_creation-3.py`
+
+Purpose: figure-generation module. It contains all plotting functions
+for benchmark performance, final panel properties, held-out
+evaluation, permutation null, and SHAP-based interpretation.[file:1722]
+
+Internal helpers:
+
+- `get_log()`: returns a logger, defaulting to the root logger.
+- `ensure_figures_dir()`: ensures an `output/figures` subfolder exists.
+- `save_figure()`: standardised Matplotlib saving routine (tight
+  layout, 300 dpi, logging).[file:1722]
+
+Main plot functions (selection):
+
+- Benchmark:
+  - `plot_benchmark_boxplot()`: outer-fold AUC distributions per
+    feature-selector + classifier combination.
+  - `plot_benchmark_barplot()`: mean outer-fold AUC ± SD per
+    combination.
+  - `plot_benchmark_heatmap()`: mean AUC heatmap (rows = selectors,
+    columns = classifiers).[file:1722]
+- Final panel:
+  - `plot_elbow_curve()`: inner-CV AUC vs. panel size, marking
+    the selected `elbow_k`.
+  - `plot_stability_barplot()`: stability values for genes in the
+    final panel.
+  - `plot_full_stability_top20()`: top-20 most stable genes from the
+    full bootstrap frequency series.
+  - `plot_final_panel_correlation_heatmap()`: Pearson correlation
+    matrix for the final panel genes.[file:1722]
+- Held-out evaluation:
+  - `plot_roc_curve()`: held-out ROC curve with AUC and optional CI.
+  - Additional functions (called from the main pipeline) generate
+    confusion matrices, permutation histograms, and violin plots of
+    predicted probabilities.[file:1722][file:1724]
+- SHAP:
+  - `plot_shap_barplot()`: mean absolute SHAP values per gene.
+  - `plot_shap_beeswarm()`: SHAP beeswarm plot for per-sample effects
+    (when SHAP is installed and available).[file:1722]
+
+All functions accept an `out_dir` and write PNG files into the
+`figures` subdirectory of the main output folder.[file:1722][file:1720]
+
+---
+
+### `sle_pipeline-5.py`
+
+Purpose: top-level **workflow controller**. This is the script you run
+to execute the full pipeline from raw input file to final tables,
+JSON files, and figures.[file:1724]
+
+It:
+
+1. Imports:
+   - `requirements` (environment/tools).
+   - `configurations` (paths, parameters).
+   - `helper_functions` (ML logic).
+   - `plot_creation` (visualization).[file:1724]
+2. Sets up output folder, logging, and global random seeds.[file:1724][file:1723]
+3. Section 1 – Data loading and donor split:
+   - Checks that `DATA_PATH` exists.
+   - Calls `helpers.load_dataset(...)`.
+   - Calls `helpers.make_sealed_donor_split(...)`.
+   - Saves a split summary to `01_split_summary.json`.[file:1724]
+4. Section 2 – Outer benchmarking (development set only):
+   - Calls `helpers.run_outer_benchmark(...)`.
+   - Saves `02_benchmark_results.csv` (fold-level AUCs).
+   - Summarises to `02_benchmark_summary.csv`.
+   - Produces benchmark boxplot, barplot, and heatmap via
+     `plot_creation-3.py`.[file:1724][file:1722]
+5. Section 3 – Final panel and stability:
+   - Calls `helpers.finalise_panel(...)` to build the final panel with
+     bootstrap stability and Pearson correlation pruning.
+   - Saves:
+     - `03_final_panel.csv`
+     - `03_full_stability.csv`
+     - `03_elbow_curve.csv`
+     - `03_final_panel_meta.json`
+     - `03_high_freq_ranked_genes.csv`
+     - Pearson correlation matrices and high-correlation pairs.
+   - Generates elbow, stability, and correlation plots.[file:1724][file:1722]
+6. Section 4 – Held-out evaluation:
+   - Trains the final model on the development set using the final
+     panel (`helpers.train_final_model`).
+   - Evaluates on the sealed held-out set
+     (`helpers.evaluate_on_holdout`).
+   - Computes ROC coordinates, bootstrap AUC CI, and a permutation null
+     distribution on the development set.
+   - Optionally trains a logistic regression comparator on the same
+     panel and evaluates it on the held-out set.
+   - Computes SHAP values if SHAP is installed and produces SHAP-based
+     plots.
+   - Saves:
+     - `04_predictions.csv`
+     - `04_roc_data.csv`
+     - `04_holdout_metrics.json`
+     - `04_permutation_null.csv` + `04_permutation_meta.json`
+     - Optional `04_lr_comparator.json`
+     - `04_shap_values.csv` and `04_shap_summary.csv`.
+   - Generates ROC, confusion-matrix, permutation, probability, and
+     SHAP plots.[file:1724][file:1722][file:1723]
+
+You can run the full pipeline with:
+
+```bash
+python sle_pipeline-5.py
+```
+
+from the project’s code directory.[file:1724]
+
+---
+
+## Execution flow (high level)
+
+1. Load packages and configuration.
+2. Load labelled donor-level expression matrix.
+3. Create an 80/20 donor-level development/held-out split.
+4. Run nested donor-aware outer CV benchmark on the development set
+   for multiple selectors × classifiers.
+5. Select the best-performing selector/classifier combination.
+6. Build a stable, low-redundancy final gene panel using bootstrap
+   stability and Pearson correlation pruning.
+7. Train a final tuned classifier on the development set using only
+   the final panel.
+8. Evaluate once on the sealed held-out donors.
+9. Generate all tables, JSON summaries, and figures.
