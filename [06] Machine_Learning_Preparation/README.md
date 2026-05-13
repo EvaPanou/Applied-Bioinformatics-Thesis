@@ -21,11 +21,11 @@ Because the dataset is **longitudinal**, with multiple samples collected from th
 
 This step represents the **transition between transcriptomic statistical analysis and machine learning**.
 
-[08] LIMMA_DEG_Analysis
+[04] LIMMA_DEG_Analysis
         ↓
-[09] Pre-ML_Activities
+[06] ML_Preprocessing
         ↓
-[10] Machine_Learning_Pipeline
+[07] Machine_Learning_Pipeline
 
 
 ---
