@@ -108,7 +108,7 @@ Key elements:
   - `N_PERMUTATIONS = 200`
   - `N_HOLDOUT_BOOTSTRAP = 200`.
 - Plot colours:
-  - `CB_BLUE` = `#0072B2`, `CB_ORANGE` = `"#E69F00"`, `CB_GREY` = `"#999999"`
+  - `CB_BLUE` = `#0072B2`, `CB_ORANGE` = `#E69F00`, `CB_GREY` = `#999999`
     (neutral palette re-used in all figures).
 
 You only edit this file when changing dataset paths, column names,
