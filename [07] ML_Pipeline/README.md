@@ -64,7 +64,15 @@ Final compact gene-signature panel derivation
 Sealed held-out test-set evaluation
         ↓
 Validated SLE diagnostic gene signature & Feature Selection / Classifier Combination
+
 ```
+## How the Sections Connect
+
+The four section-specific diagrams should be read as consecutive stages of a single workflow.
+
+Section 1 defines the two major data branches: the development cohort and the sealed held-out cohort. Section 2 uses only the development cohort to compare feature-selection and classification strategies. Section 3 uses the selected winning strategy and the full development cohort to derive the final compact gene panel. Section 4 reconnects the sealed held-out cohort for the first time and uses it for final evaluation only.
+
+This structure ensures that model selection and final evaluation remain separated.
 
 ---
 
@@ -201,31 +209,3 @@ A logistic-regression comparator is trained and evaluated on the same final gene
 - logistic-regression comparator evaluation;
 - SHAP-based model interpretation;
 - validated SLE diagnostic gene signature.
-
----
-
-## How the Sections Connect
-
-The four section-specific diagrams should be read as consecutive stages of a single workflow.
-
-Section 1 defines the two major data branches: the development cohort and the sealed held-out cohort. Section 2 uses only the development cohort to compare feature-selection and classification strategies. Section 3 uses the selected winning strategy and the full development cohort to derive the final compact gene panel. Section 4 reconnects the sealed held-out cohort for the first time and uses it for final evaluation only.
-
-This structure ensures that model selection and final evaluation remain separated.
-
----
-
-## Donor-Aware Design and Leakage Prevention
-
-A central methodological feature of this pipeline is donor-aware analysis.
-
-Because multiple samples can originate from the same donor across different timepoints, random sample-level splitting could allow donor-specific biological information to appear in both training and testing sets. This would inflate performance estimates and weaken the reliability of the final evaluation.
-
-To avoid this, donor grouping is maintained during:
-
-- the initial development/held-out split;
-- outer cross-validation;
-- inner cross-validation;
-- feature-selector/classifier benchmarking;
-- final held-out evaluation.
-
-The held-out cohort is sealed immediately after the initial split and is excluded from feature selection, hyperparameter tuning, classifier benchmarking, and final panel derivation. It is used only once at the end for final evaluation.
