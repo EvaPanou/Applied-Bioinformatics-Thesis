@@ -186,7 +186,7 @@ A grid-based benchmarking design was used to systematically evaluate combination
 
 The benchmark heatmap summarizes the mean outer-fold AUC for each feature-selector/classifier pair.
 
-![Benchmark heatmap](<figures/06_benchmark_heatmap.png>)
+![Benchmark heatmap](<figures/02_benchmark_heatmap.png>)
 
 The heatmap provides a compact overview of model-combination performance across the full benchmarking grid. The highest mean AUC combination selected from this benchmarking stage was Boruta + RF:
 
@@ -204,13 +204,13 @@ In this dataset, the best-performing configuration combined Boruta feature selec
 
 The benchmark barplot compares mean outer-fold AUC values across feature-selector/classifier combinations.
 
-![Benchmark barplot](<figures/06_benchmark_barplot.png>)
+![Benchmark barplot](<figures/02_benchmark_barplot.png>)
 
 ### Benchmark Boxplot
 
 The benchmark boxplot displays the outer-fold AUC distributions for each feature-selector/classifier pair.
 
-![Benchmark boxplot](<figures/06_benchmark_boxplot.png>)
+![Benchmark boxplot](<figures/02_benchmark_boxplot.png>)
 
 Together, these figures provide complementary summaries of the development-set model-selection stage.
 
