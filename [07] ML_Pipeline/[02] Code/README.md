@@ -7,21 +7,13 @@ panel construction, held-out test subset evaluation, and figure generation.
 
 At a high level:
 
-- `sle_pipeline.py` is the workflow controller, the only script that you need to run, 
-                    it includes the main pipeline that depends on all the other 
-                    scripts and calls on them itself in the appropriate 
-                    phase. It also creates all the csv output tables.
---------------------------------------------------------------------------------------------
-- `requirements.py` manages package installation, if they do not already exist 
-                    and imports them for future use in the rest of the scripts
-- `configurations.py` defines all input and output directory paths, necessary 
-                      data input columns, parameters, and thresholds.
-- `helper_functions.py` defines all the necessary main pipeline functions, the donor 
-                        stratification, the train-test splitting and implements 
-                        the core ML logic, every feature selection method & 
-                        classifier benchmark. It also creates all the json output files.
-- `plot_creation.py` defines all plot functions and implements the generation
-                      of all PNG figures from the saved results.
+| Script File | Functionality |
+|---|---|
+| `sle_pipeline.py` | **workflow controller, the only script that you need to run, it includes the main pipeline that depends on all the other scripts and calls on them itself in the appropriate phase. It also creates all the csv output tables.** |
+| `requirements.py` | manages package installation, if they do not already exist and imports them for future use in the rest of the scripts |
+| `configurations.py` | defines all input and output directory paths, necessary data input columns, parameters, and thresholds. |
+| `helper_functions.py` | defines all the necessary main pipeline functions, the donor stratification, the train-test splitting and implements the core ML logic, every feature selection method & classifier benchmark. It also creates all the json output files. |
+| `plot_creation.py` | defines all plot functions and implements the generation of all PNG figures from the saved results. |
 
 All scripts must live in the same code directory for the imports to
 work correctly.
