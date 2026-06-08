@@ -1,109 +1,88 @@
 
-# -------------------------------------------------------------------------------------------------------------------
-# This script contains all the commands for python packages that you will need to have installed in your computer
-# and then you will need to have them imported for the main pipeline script to run.
+"""
+=============================================================================
+requirements.py
+-----------------------------------------------------------------------------
+WHAT THIS FILE DOES:
+  It imports every package and tool the rest of the pipeline needs. 
+  The rest of the scripts then write  `from requirements import *` so they
+  do not have to repeat all of these import lines.
+
+BEFORE YOU RUN THE PIPELINE (one time only):
+  Install the packages by opening a terminal in this folder and running:
+
+      pip install -r requirements.txt 
+      # txt file within this directory, for mass installation of required packages
+
+WHERE THIS FILE MUST BE SAVED:
+  In the same directory as sle_pipeline.py, otherwise the imports will not work.
+=============================================================================
+
+"""
+# -----------------------------------------------------------------------------
+# Standard-library tools (built into Python, nothing to install)
+# -----------------------------------------------------------------------------
+import json                          # read and write the .json output files
+import logging                       # write progress messages to the log file
+import os                            # talk to the operating system (e.g. set the seed)
+import random                        # Python's built-in random-number generator
+from collections import Counter      # quick way to count how many of each label
+from dataclasses import dataclass    # tidy way to bundle related values into one object
+from pathlib import Path             # handle file paths safely on any operating system
+from typing import Iterable, Tuple   # type hints describing what a function takes/returns
 
 
-# IT WILL NEED TO BE LOCATED IN THE SAME DIRECTORY AS THE MAIN PIPELINE SCRIPT "sle_pipeline.py"
-# in order to be directly called into action
-# ------------------------------------------------------------------------------------------------------------------
-
-# INSTALLATIONS
-# -------------------------------------
-# We first try to import each package; if that fails, we pip-install it into the same
-# Python interpreter that is running this script (sys.executable guarantees the right
-# environment) and then continue.
-# We exclude packages that ship with Python (json, os, sys, subprocess, importlib, ...).
-
-# Format: (pip_name, import_name)
-#   - pip_name    -> the name on PyPI, e.g. "scikit-learn"
-#   - import_name -> the name you `import` in Python, e.g. "sklearn"
-
-import importlib
-import subprocess
-import sys
-
-
-_REQUIRED = [
-    ("numpy",           "numpy"),
-    ("pandas",          "pandas"),
-    ("scikit-learn",    "sklearn"),
-    ("matplotlib",      "matplotlib"),
-    ("shap",            "shap"),
-    ("mrmr-selection",  "mrmr"),
-    ("kneed",           "kneed"),
-    ("xgboost",         "xgboost"),
-    ("Boruta",          "boruta"),
-]
-
-
-for pip_name, import_name in _REQUIRED:
-    try:
-        importlib.import_module(import_name)
-    except ImportError:
-        print(f"[requirements] '{import_name}' not found -- installing '{pip_name}' ...")
-        try:
-            subprocess.check_call([sys.executable, "-m", "pip", "install", pip_name])
-        except subprocess.CalledProcessError:
-            if pip_name == "shap":
-                print(f"[requirements] '{pip_name}' install failed -- continuing without it")
-            else:
-                raise
-
-
-
-# IMPORTS
-# -------------------------------------
-# standard library
-import json
-import logging
-import os
-import random
-from collections import Counter
-from dataclasses import dataclass
-from pathlib import Path
-from typing import Iterable, Tuple
-
-
-
-# matplotlib
+# -----------------------------------------------------------------------------
+# Plotting 
+# -----------------------------------------------------------------------------
 import matplotlib
-matplotlib.use("Agg")                 # safe on any laptop, no display required
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 
-
-# others
+# -----------------------------------------------------------------------------
+# Scientific and ML packages
+# -----------------------------------------------------------------------------
 import numpy as np
 import pandas as pd
 from boruta import BorutaPy
 from xgboost import XGBClassifier
 
 
-# scikit-learn
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.feature_selection import RFECV         # used by SVM-RFE
-from sklearn.linear_model import LogisticRegression, LogisticRegressionCV
+# scikit-learn: for ML
+from sklearn.ensemble import RandomForestClassifier   # Random Forest model
+from sklearn.feature_selection import RFECV            # used by the SVM-RFE selector
+from sklearn.linear_model import (
+    LogisticRegression,      # plain logistic regression
+    LogisticRegressionCV,    # logistic regression that tunes itself with cross-validation
+)
 from sklearn.metrics import (
-    accuracy_score, confusion_matrix, roc_auc_score, roc_curve,
+    accuracy_score,     # fraction of predictions that were correct
+    confusion_matrix,   # table of correct vs incorrect predictions per class
+    roc_auc_score,      # the AUC score (the main metric used in this pipeline)
+    roc_curve,          # the coordinates needed to draw an ROC curve
 )
 from sklearn.model_selection import (
-    GridSearchCV, StratifiedGroupKFold, StratifiedShuffleSplit,
+    GridSearchCV,            # tries every combination of settings to find the best
+    StratifiedGroupKFold,    # cross-validation that keeps each donor in ONE fold only
+    StratifiedShuffleSplit,  # used for the donor-level train/test split
 )
-from sklearn.naive_bayes import GaussianNB
-from sklearn.preprocessing import StandardScaler
-from sklearn.svm import SVC
+from sklearn.naive_bayes import GaussianNB         # Naive Bayes classifier
+from sklearn.preprocessing import StandardScaler   # rescales features onto a common scale
+from sklearn.svm import SVC                        # Support Vector Machine classifier
 
 
-# optional: SHAP 
-# Renamed _HAS_SHAP -> HAS_SHAP so it gets exported by `from requirements import *`
-# (Python's `import *` skips names starting with an underscore).
+# -----------------------------------------------------------------------------
+# SHAP Plotting
+# -----------------------------------------------------------------------------
+# If this raises an error and it is not installed, the pipeline simply skips the SHAP plots.
+#
+# The flag is HAS_SHAP with NO leading underscore on purpose: `import *` skips
+# names starting with "_", so an underscore would hide it from the other scripts.
 try:
     import shap
     HAS_SHAP = True
-    # SHAP's kernel explainer prints per-sample arithmetic at INFO,
-    # which floods our log file -- silence its noise.
-    logging.getLogger("shap").setLevel(logging.WARNING)
+    logging.getLogger("shap").setLevel(logging.WARNING)  # stop SHAP flooding the log
 except Exception:
-    shap = None                       # type: ignore
+    shap = None
     HAS_SHAP = False
