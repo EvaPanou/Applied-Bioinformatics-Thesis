@@ -242,7 +242,7 @@ def make_sealed_donor_split(
     X: pd.DataFrame,
     y: pd.Series,
     donors: pd.Series,
-    holdout_frac: float = HOLDOUT_FRAC,
+    holdout_frac: float = HOLDOUT_FRACTION,
     seed: int = SEED,
     logger: logging.Logger | None = None,
 ) -> dict:
@@ -453,7 +453,7 @@ def run_mrmr_selector(
     fold_id: str = "fold?",
     logger: logging.Logger | None = None,
     *,
-    top_k: int = MRMR_TOP_K,
+    top_k: int = MRMR_TOP_K_FEATURES,
     seed: int = SEED,
 ) -> Tuple[list[str], list[str]]:
     """
@@ -675,7 +675,7 @@ def run_rf_selector(
     logger: logging.Logger | None = None,
     *,
     n_trees: int = RF_IMPORTANCE_TREES,
-    top_k: int = MRMR_TOP_K,
+    top_k: int = MRMR_TOP_K_FEATURES,
     seed: int = SEED,
 ) -> Tuple[list[str], list[str]]:
     """
@@ -853,7 +853,7 @@ def elbow_optimal_subset(
     fold_id: str = "fold?",
     logger: logging.Logger | None = None,
     *,
-    max_k: int = MRMR_TOP_K,
+    max_k: int = MRMR_TOP_K_FEATURES,
     min_improvement: float = 0.01,
     n_folds: int = N_INNER_FOLDS,
     seed: int = SEED,
@@ -976,7 +976,7 @@ def _classifier_grid() -> dict:
             ),
             {
                 "max_depth": list(XGB_DEPTH_VALUES),
-                "learning_rate": list(XGB_LR_VALUES),
+                "learning_rate": list(XGB_LEARN_VALUES),
                 "n_estimators": list(XGB_N_ESTIMATORS),
             },
         )
@@ -1311,7 +1311,7 @@ def build_final_signature(
     fs_name: str,
     logger: logging.Logger | None = None,
     *,
-    max_k: int = MRMR_TOP_K,
+    max_k: int = MRMR_TOP_K_FEATURES,
     n_folds: int = N_INNER_FOLDS,
     seed: int = SEED,
 ) -> dict:
