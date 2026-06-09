@@ -21,7 +21,7 @@ BEFORE RUNNING:
     check (to catch naming inconsistencies from the previous scripts 
     to this one), by running the following line: 
 
-    python -c "import helper_functions"
+    python -m py_compile helper_functions.py
 =============================================================================
 """
 
@@ -30,6 +30,7 @@ BEFORE RUNNING:
 # --------------------------
 
 # importing widely used packages
+
 from __future__ import annotations 
 # explanation:
 # special Python import that lets a future statement for enabling features 
@@ -47,6 +48,7 @@ import numpy as np
 import pandas as pd
 
 # importing everything configured in my previous scripts
+
 from requirements import *
 from configurations import *
 
