@@ -1,18 +1,22 @@
-# --------------------------------------------------------------------
-# Helper functions for the SLE diagnostic gene-signature pipeline.
-# --------------------------------------------------------------------
+"""
+==============================================================================
+helper_functions.py
+-----------------------------------------------------------------------------
+WHAT THIS FILE DOES:
+    I use this file to keep the main pipeline script cleaner and easier to follow.
+    It contains the functions for loading the data, making donor-stratified splits,
+    running the feature-selection methods, benchmarking models, building the
+    final gene signature, and testing the final model on the held-out donors.
 
-# I use this file to keep the main pipeline script cleaner and easier to follow.
-# It contains the functions for loading the data, making donor-stratified splits,
-# running the feature-selection methods, benchmarking models, building the
-# final gene signature, and testing the final model on the held-out donors.
+    The overall aim is to support the main ML pipeline for
+    classifying SLE versus healthy controls from gene-expression data.
+    The main script (sle_pipeline.py) only orchestrates these steps.
 
-# The overall aim is to support the main ML pipeline for
-# classifying SLE versus healthy controls from gene-expression data.
-# The main script (sle_pipeline.py) only orchestrates these steps.
-
-# IT WILL NEED TO BE LOCATED IN THE SAME DIRECTORY AS THE MAIN PIPELINE SCRIPT "sle_pipeline.py"
-# in order to be directly called into action
+WHERE THIS FILE MUST BE SAVED:
+    In the same directory as sle_pipeline.py, otherwise the imports 
+    from/to other scripts will not work.
+=============================================================================
+"""
 
 # --------------------------
 # IMPORT STEP
