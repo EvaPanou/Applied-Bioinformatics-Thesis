@@ -40,8 +40,8 @@ import numpy as np
 import pandas as pd
 
 # importing everything configured in my previous scripts
-import requirements as req
-import configurations as config
+from requirements import *
+from configurations import *
 
 # ------------------------------------------------------------------
 # Basic setup functions
