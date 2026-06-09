@@ -15,6 +15,13 @@ WHAT THIS FILE DOES:
 WHERE THIS FILE MUST BE SAVED:
     In the same directory as sle_pipeline.py, otherwise the imports 
     from/to other scripts will not work.
+
+BEFORE RUNNING:
+    Open a terminal window within this dir, and do an naming import 
+    check (to catch naming inconsistencies from the previous scripts 
+    to this one), by running the following line: 
+
+    python -c "import helper_functions"
 =============================================================================
 """
 
