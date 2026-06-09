@@ -59,6 +59,7 @@ from sklearn.linear_model import (
 from sklearn.metrics import (
     accuracy_score,     # fraction of predictions that were correct
     confusion_matrix,   # table of correct vs incorrect predictions per class
+    f1_score,           # the f1 score, which balances precision and recall into one number
     roc_auc_score,      # the AUC score (the main metric used in this pipeline)
     roc_curve,          # the coordinates needed to draw an ROC curve
 )
