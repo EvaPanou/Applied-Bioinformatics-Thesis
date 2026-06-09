@@ -17,11 +17,12 @@ WHERE THIS FILE MUST BE SAVED:
     from/to other scripts will not work.
 
 BEFORE RUNNING:
-    Open a terminal window within this dir, and do an naming import 
-    check (to catch naming inconsistencies from the previous scripts 
-    to this one), by running the following line: 
+    Open a terminal window within this dir, and do an import check 
+    (to catch syntax and naming inconsistencies from the previous 
+    scripts to this one), by running the following line: 
 
-    python -m py_compile helper_functions.py
+    python -m py_compile helper_functions.py  --> for syntax check
+    python -c "import helper_functions"       --> imports check
 =============================================================================
 """
 
