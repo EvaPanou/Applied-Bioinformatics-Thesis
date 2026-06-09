@@ -1,16 +1,19 @@
-#-----------------------------------------------------------------------------------------
-# This script contains all the commands for configured parameters, paths, or column names
-# that you will need to have imported for the main pipeline script to run.
+"""
+==============================================================================
+configurations.py
+-----------------------------------------------------------------------------
+WHAT THIS FILE DOES:
+  It contains all the commands for configured parameters, paths, or column names
+  that you will need to have imported for the main pipeline script to run.
 
-# IT WILL NEED TO BE LOCATED IN THE SAME DIRECTORY AS THE MAIN PIPELINE SCRIPT "sle_pipeline.py"
-# in order to be direclty called into action
+  The rest of the scripts then write  `from configurations import *` so they
+  do not have to repeat all of these import lines.
 
-# Defaults are explained in "METHODS.md". Folder Layout is explain in "folder_layout.md". 
-
-# Resolve paths are relative to wherever the script lives, so the same configurtion
-
-# Configurations
-# ------------------------------------------------------------------------------------------
+WHERE THIS FILE MUST BE SAVED:
+  In the same directory as sle_pipeline.py, otherwise the imports 
+  from/to other scripts will not work.
+=============================================================================
+"""
 
 # (stdlib Path is for filesystem paths; everything else lives in requirements.py)
 from pathlib import Path
@@ -27,7 +30,7 @@ OUTPUT_DIR  = PROJECT_DIR / "[03] Output"
 # Colour palette definition
 # --------------------------
 CB_BLUE   = "#0072B2"             # for the SLE class / primary curve
-CB_ORANGE = "#E69F00"             # for healthy / comparator
+CB_ORANGE = "#E69F00"             # for healthy / comparator 
 CB_GREY   = "#999999"             # Grey is for null distributions / context
 
 
@@ -37,7 +40,6 @@ DATA_FILENAME    = "ML_FeatureMatrix_AllDEGs_with_Metadata.tsv"
 LOG_FILENAME     = "pipeline_log.txt"
 
 DATA_PATH        = INPUT_DIR  / DATA_FILENAME
-TABLES_DIR       = OUTPUT_DIR / "tables"
 FIGURES_DIR      = OUTPUT_DIR / "figures"
 LOG_PATH         = OUTPUT_DIR / LOG_FILENAME
 
@@ -69,7 +71,7 @@ SEED = 42
 
 # Splits 
 # ------------------------
-HOLDOUT_FRAC    = 0.20
+HOLDOUT_FRACTION    = 0.20
 N_OUTER_FOLDS   = 5
 N_INNER_FOLDS   = 5
 N_REPEATS       = 1
@@ -79,8 +81,8 @@ N_REPEATS       = 1
 # --------------------
 FS_METHODS = ("mrmr", "lasso", "elasticnet", "svm_rfe", "rf", "boruta")   # to feed data into the benchmarking
 
-MRMR_TOP_K = 30      # also the per-method top-k cap and bootstrap top-k
-LASSO_C_VALUES = (0.001, 0.01, 0.1, 1.0, 10.0)
+MRMR_TOP_K_FEATURES = 30      # also the per-method top-k cap and bootstrap top-k
+LASSO_C_VALUES = (0.001, 0.01, 0.1, 1.0, 10.0)      # C is the official scikit-learn name for the regularisation strength
 ELASTICNET_C_VALUES = (0.001, 0.01, 0.1, 1.0, 10.0)
 ELASTICNET_L1_RATIOS = (0.2, 0.5, 0.8)
 RF_IMPORTANCE_TREES = 300
@@ -90,9 +92,8 @@ SVM_RFE_INNER_FOLDS = 3
 BORUTA_MAX_ITER = 100       
 
 
-# Classifier benchmark 
-# --------------------------------
-# Hyperparameter grids
+# Classifiers - Hyperparameter Tuning
+# -------------------------------------
 
 CLASSIFIERS = ("svm", "logreg", "rf", "xgboost", "nb", "knn")
 
@@ -102,7 +103,7 @@ SVM_GAMMA_VALUES    = ("scale", "auto")
 RF_DEPTH_VALUES     = (None, 5, 10)
 RF_LEAF_VALUES      = (1, 2, 5)
 XGB_DEPTH_VALUES    = (3, 5, 7)
-XGB_LR_VALUES       = (0.01, 0.05, 0.1)
+XGB_LEARN_VALUES       = (0.01, 0.05, 0.1)
 XGB_N_ESTIMATORS    = (100, 200, 300)
 NB_VAR_SMOOTHING    = (1e-9, 1e-8, 1e-7)
 KNN_NEIGHBORS       = (3, 5, 7, 9)
