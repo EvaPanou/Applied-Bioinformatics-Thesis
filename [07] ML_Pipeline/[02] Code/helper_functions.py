@@ -22,18 +22,11 @@ WHERE THIS FILE MUST BE SAVED:
 # IMPORT STEP
 # --------------------------
 
-from __future__ import annotations # special Python import that lets a future statement for enabling features before they become standard behavior.
-
-from collections import Counter
-from pathlib import Path
-from typing import Iterable, Tuple
-
-import logging
-import os
-import random
-
-import numpy as np
-import pandas as pd
+# importing widely used packages
+from __future__ import annotations 
+# explanation:
+# special Python import that lets a future statement for enabling features 
+# before they become standard behavior.
 
 from collections import Counter
 from pathlib import Path
@@ -43,66 +36,12 @@ import logging
 import os
 import random
 
-from requirements import (
-    StandardScaler,
-    RandomForestClassifier,
-    StratifiedGroupKFold,
-    StratifiedShuffleSplit,
-    LogisticRegression,
-    LogisticRegressionCV,
-    RFECV,
-    SVC,
-    GaussianNB,
-    GridSearchCV,
-    accuracy_score,
-    roc_auc_score,
-    confusion_matrix,
-    BorutaPy,
-    XGBClassifier,
-)
+import numpy as np
+import pandas as pd
 
-from configurations import (
-    LOG_PATH,
-    OUTPUT_DIR,
-    DATA_PATH,
-    METADATA_COLUMNS,
-    DONOR_ID_COL,
-    LABEL_COL,
-    HOLDOUT_FRAC,
-    N_OUTER_FOLDS,
-    N_INNER_FOLDS,
-    N_REPEATS,
-    SEED,
-    FS_METHODS,
-    CLASSIFIERS,
-    MRMR_TOP_K,
-    LASSO_C_VALUES,
-    ELASTICNET_C_VALUES,
-    ELASTICNET_L1_RATIOS,
-    RF_IMPORTANCE_TREES,
-    SVM_RFE_STEP,
-    SVM_RFE_MIN_FEATURES,
-    SVM_RFE_INNER_FOLDS,
-    BORUTA_MAX_ITER,
-    LR_C_VALUES,
-    SVM_C_VALUES,
-    SVM_GAMMA_VALUES,
-    RF_DEPTH_VALUES,
-    RF_LEAF_VALUES,
-    XGB_DEPTH_VALUES,
-    XGB_LR_VALUES,
-    XGB_N_ESTIMATORS,
-    NB_VAR_SMOOTHING,
-    KNN_NEIGHBORS,
-    FOLD_BOOTSTRAP_ITERATIONS,
-    FOLD_BOOTSTRAP_TREES,
-    FOLD_BOOTSTRAP_TOP_PERCENTILE,
-    FOLD_STABILITY_THRESHOLD,
-    FOLD_STABLE_FALLBACK_TOP_N,
-    FOLD_MIN_STABLE_GENES,
-    FINAL_STABILITY_THRESHOLD,     # ← add this
-    FINAL_PEARSON_THRESHOLD,       # ← add this
-)
+# importing everything configured in my previous scripts
+import requirements as req
+import configurations as config
 
 # ------------------------------------------------------------------
 # Basic setup functions
