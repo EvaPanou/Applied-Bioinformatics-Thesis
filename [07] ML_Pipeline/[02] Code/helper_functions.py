@@ -95,7 +95,6 @@ def setup_logging(log_path: Path = LOG_PATH) -> logging.Logger:
 def set_global_seed(seed: int = SEED) -> None:
     """
     This function sets the random SEED for reproducibility.
-
     This affects Python's random module, NumPy, and hash behaviour.
     """
     os.environ["PYTHONHASHSEED"] = str(seed)
