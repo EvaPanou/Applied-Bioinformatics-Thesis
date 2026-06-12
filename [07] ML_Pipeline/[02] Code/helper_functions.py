@@ -90,24 +90,6 @@ def setup_logging(log_path: Path = LOG_PATH) -> logging.Logger:
     return logger
 
 
-def set_global_seed(seed: int = SEED) -> None:
-    """
-    This function sets the random SEED for reproducibility.
-    This affects Python's random module, NumPy, and hash behaviour.
-    """
-    os.environ["PYTHONHASHSEED"] = str(seed)
-    random.seed(seed)
-    np.random.seed(seed)
-
-
-def ensure_output_dir(path: Path = OUTPUT_DIR) -> Path:
-    """
-    This function creates the output folder if it does not already exist.
-    """
-    path.mkdir(parents=True, exist_ok=True)
-    return path
-
-
 # ---------------------------------------------------------------------------
 # Donor-stratification CROSS VALIDATION functions
 # ---------------------------------------------------------------------------
