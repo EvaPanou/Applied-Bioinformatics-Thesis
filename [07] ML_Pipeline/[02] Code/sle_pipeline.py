@@ -17,11 +17,13 @@ Main stages:
 8. Held-out evaluation
 """
 
-# Import Step - installs prerequisites
-# ------------------------------------
+# Import Step - installs prerequisites (req script + Python Standard Library packages)
+# ------------------------------------------------------------------------------------
 import requirements as req
 import pandas as pd  # in case it won't load later
 import numpy as np  # in case it won't load later
+import os
+import random
 
 # Configuration Step - defines paths, data columns & parameters
 # -------------------------------------------------------------
@@ -50,6 +52,16 @@ def _pick(d: dict, *keys, default=None):
         if k in d:
             return d[k]
     return default
+
+# Create the output directory (and any missing parent folders); no error if it already exists.
+out_dir = config.OUTPUT_DIR
+out_dir.mkdir(parents=True, exist_ok=True)
+"""check lines 73-74 for fixing"""
+
+# Fix the random seeds for reproducibility (identical results on repeated runs).
+random.seed(config.SEED)      # Python's built-in random module
+np.random.seed(config.SEED)   # NumPy's random generator
+"""check lines 79-80"""
 
 
 # ===========================================================================
