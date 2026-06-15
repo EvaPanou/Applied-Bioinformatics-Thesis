@@ -74,7 +74,7 @@ def setup_logging(log_path: Path = LOG_PATH):
 # Donor-stratification CROSS VALIDATION functions
 # ---------------------------------------------------------------------------
 
-def make_donor_stratified_cv(n_splits= N_OUTER_FOLDS, seed = SEED):
+def donor_stratified_cv(n_splits= N_OUTER_FOLDS, seed = SEED):
     """
     This function creates donor-stratified cross-validation folds.
     Stratified = so that the Healthy vs SLE class ratios are preserved per fold.
