@@ -9,9 +9,6 @@
 # IT WILL NEED TO BE LOCATED IN THE SAME DIRECTORY AS THE MAIN PIPELINE SCRIPT "sle_pipeline.py"
 # in order to be direclty called into action
 
-
-from __future__ import annotations
-
 from pathlib import Path
 import logging
 
