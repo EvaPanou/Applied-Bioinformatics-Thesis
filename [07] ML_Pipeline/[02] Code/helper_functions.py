@@ -32,11 +32,6 @@ BEFORE RUNNING:
 
 # importing widely used packages
 
-from __future__ import annotations 
-# explanation:
-# special Python import that lets a future statement for enabling features 
-# before they become standard behavior.
-
 from collections import Counter
 from pathlib import Path
 from typing import Iterable, Tuple
@@ -59,15 +54,15 @@ def setup_logging(log_path: Path = LOG_PATH):
     """
     Set up a logger so every message goes to both a log file and the terminal.
     """
-    log_path.parent.mkdir(parents=True, exist_ok=True)
+    log_path.parent.mkdir(parents=True, exist_ok=True) # setting up parent directory to create log file
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s | %(levelname)-7s | %(message)s",
+    logging.basicConfig(                                            # configure logging settings
+        level=logging.INFO,                                         # set up lesser level of message : INFO (as opposed to error or warning) 
+        format="%(asctime)s | %(levelname)-7s | %(message)s",       # set up datetime format + message
         datefmt="%Y-%m-%d %H:%M",
         handlers=[
-            logging.FileHandler(log_path, mode="w"),
-            logging.StreamHandler(),
+            logging.FileHandler(log_path, mode="w"),                # set up handlers for file and terminal text writing
+            logging.StreamHandler(),                                
         ],
     )
 
@@ -79,16 +74,12 @@ def setup_logging(log_path: Path = LOG_PATH):
 # Donor-stratification CROSS VALIDATION functions
 # ---------------------------------------------------------------------------
 
-def make_donor_stratified_cv(
-    n_splits: int = N_OUTER_FOLDS,
-    seed: int = SEED,
-) -> StratifiedGroupKFold:
+def make_donor_stratified_cv(n_splits= N_OUTER_FOLDS, seed = SEED):
     """
     This function creates donor-stratified cross-validation folds.
-
-    Samples from the same donor always stay in the same fold.
-    This is important because the dataset contains repeated
-    samples from the same donor.
+    Stratified = so that the Healthy vs SLE class ratios are preserved per fold.
+    Samples from the same donor always stay in the same fold to retain train-test independence.
+    This is to be used within all other functions that make stratified splits.
     """
     return StratifiedGroupKFold(
         n_splits=n_splits,
@@ -97,42 +88,32 @@ def make_donor_stratified_cv(
     )
 
 
-def assert_no_donor_leakage(
-    train_donors: Iterable,
-    test_donors: Iterable,
-    fold_label: str = "",
-) -> None:
+def assert_no_donor_leakage(train_donors, test_donors, fold_label):
     """
-    This function checks that no donor appears in both train and test.
+    This function checks that no donor appears in both train and test, as a safety guard.
+    If the same donor is found in both sets, the function stops the run with an error.
 
-    If the same donor is found in both sets, the function stops
-    the run with an error.
+    1. train_donors & test_donors are iterable 
+    2. Group overlap below is written with "&", meaning INTERSECTION, so it should always be empty.
     """
-    overlap = set(train_donors) & set(test_donors)
-
-    if overlap:
-        example_donor = next(iter(overlap))
+    overlap = set(train_donors) & set(test_donors)      
+    
+    if overlap:   # if not empty
         raise RuntimeError(
             f"[{fold_label}] Donor leakage found: {len(overlap)} overlapping donor(s). "
-            f"Example donor: {example_donor}"
         )
 
 
-def summarise_split(
-    name: str,
-    y: np.ndarray,
-    donors: np.ndarray,
-    logger: logging.Logger,
-) -> None:
+def summarise_split(name, y, donors, logger):
     """
-    Print a short summary of one dataset split.
+    Log a short summary of one dataset split:
+    number of donors, samples, SLE samples, and healthy samples.
 
-    This includes:
-    - number of donors
-    - number of samples
-    - number of SLE samples
-    - number of healthy samples
+    name   = label for the split, e.g. "development" or "held-out"
+    y      = 0/1 label for each sample (1 = SLE, 0 = Healthy)
+    donors = donor ID for each sample
     """
+    # count how many samples are SLE (1) and how many are Healthy (0)
     n_sle = int(np.sum(y == 1))
     n_healthy = int(np.sum(y == 0))
 
