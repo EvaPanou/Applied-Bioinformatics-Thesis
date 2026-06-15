@@ -55,40 +55,25 @@ from configurations import *
 # Basic setup functions
 # ------------------------------------------------------------------
 
-def setup_logging(log_path: Path = LOG_PATH) -> logging.Logger:
+def setup_logging(log_path: Path = LOG_PATH):
     """
-    Set up logging of all actions straight to both a file and the terminal.
-
-    This helps keep a LOG FILE of what happened during the run.
-    If the logger already has handlers, they are removed first
-    so the same message is not printed twice.
+    Set up a logger so every message goes to both a log file and the terminal.
     """
     log_path.parent.mkdir(parents=True, exist_ok=True)
 
-    logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
-
-    # Remove old handlers if they already exist
-    for handler in list(logger.handlers):
-        logger.removeHandler(handler)
-
-    formatter = logging.Formatter(
-        "%(asctime)s | %(levelname)-7s | %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s | %(levelname)-7s | %(message)s",
+        datefmt="%Y-%m-%d %H:%M",
+        handlers=[
+            logging.FileHandler(log_path, mode="w"),
+            logging.StreamHandler(),
+        ],
     )
 
-    file_handler = logging.FileHandler(log_path, mode="w")
-    file_handler.setFormatter(formatter)
-
-    stream_handler = logging.StreamHandler()
-    stream_handler.setFormatter(formatter)
-
-    logger.addHandler(file_handler)
-    logger.addHandler(stream_handler)
-
-    logger.info("Logger started. Writing log to %s", log_path)
-    return logger
-
+    log = logging.getLogger()
+    log.info("Logger started. Writing log to %s", log_path)
+    return log
 
 # ---------------------------------------------------------------------------
 # Donor-stratification CROSS VALIDATION functions
