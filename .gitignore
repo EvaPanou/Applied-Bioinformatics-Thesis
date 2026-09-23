@@ -164,4 +164,5 @@ cython_debug/
 notes.md
 data/r_preprocessed_datasets
 
-.Rhistory
+*.Rhistory
+*.RData

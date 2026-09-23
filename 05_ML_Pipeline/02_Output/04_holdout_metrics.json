@@ -1,0 +1,31 @@
+{
+  "auc": 0.8605098605098604,
+  "auc_ci_lower": 0.7735457356770832,
+  "auc_ci_upper": 0.9208896469017638,
+  "n_auc_bootstrap": 200,
+  "sensitivity": 0.8095238095238095,
+  "specificity": 0.7878787878787878,
+  "accuracy": 0.8020833333333334,
+  "f1": 0.8429752066115702,
+  "tp": 51,
+  "fp": 7,
+  "fn": 12,
+  "tn": 26,
+  "n_positive": 63,
+  "n_negative": 33,
+  "n_samples": 96,
+  "best_params": {
+    "C": 0.1,
+    "gamma": "scale"
+  },
+  "inner_cv_auc": 0.9235657060711626,
+  "panel": [
+    "HERC5",
+    "BATF2",
+    "SPATS2L"
+  ],
+  "classifier": "svm",
+  "fs_method": "boruta",
+  "final_stability_threshold": 0.8,
+  "final_pearson_threshold": 0.9
+}
