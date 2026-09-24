@@ -1,31 +1,122 @@
 # Applied-Bioinformatics-Thesis
 
-> *This repository will contain all the relevant steps and commands to follow in order to identify biomarkers related to auto-immune diseases, using Machine Learning methods*
+**Identifying biomarkers related to auto-immune diseases using Machine Learning methods**
 
-## Info about the dataset
+Master's Thesis — Applied Bioinformatics, Aristotle University of Thessaloniki
+Eva Panou
 
-The data used in this repository is from the research paper *"Longitudinal profiling of human blood transcriptome in healthy and lupus pregnancy"*.
+> This repository includes the full pipeline for identifying a useful blood-transcriptomic gene signature for **Systemic Lupus Erythematosus (SLE)**
 
-The raw microarray dataset described in the manuscript is deposited in the NCBI GEO (accession no. GSE108497), along with supplementary files like series matrices. It can be also be found processed in the Autoimmune Diseases Explorer (ADEx), with the same GEO Accession number, along with the processed metadata file. Here the processed ADEx version was used to push the analysis forward. However the processed ADEx metadata file was further modified to include more info, during the first steps of the analysis.
+---
+
+## 1. Research Question & Hypothesis
+
+**Main hypothesis:** a small, stable set of differentially expressed genes, identified through a donor-aware and stability-based machine-learning approach applied to blood transcriptomic data, is sufficient to discriminate SLE patients from healthy controls with high, generalisable diagnostic accuracy on unseen donors.
+
+SLE is a chronic, multisystem autoimmune disease marked by substantial heterogeneity in presentation. At the transcriptomic level, its most consistent hallmark is overexpression of interferon-inducible genes in peripheral blood (the "interferon signature"), reported across many independent cohorts. This thesis asks whether that signal — and complementary non-interferon signal — can be distilled into a small, reproducible gene panel that:
+
+1. is derived through a methodologically rigorous, leakage-free pipeline (donor-aware splitting throughout, since the dataset is longitudinal with multiple samples per donor);
+2. generalises to a sealed, never-touched-during-development held-out cohort;
+3. is not simply tracking pregnancy status or pregnancy complications rather than SLE itself, given the dataset's pregnancy-cohort design (see §6).
+
+---
+
+## 2. Data Source
+
+The dataset is **GSE108497**, from Hong et al., *"Longitudinal profiling of human blood transcriptome in healthy and lupus pregnancy,"* *J Exp Med* 2019 ([doi.org/10.1084/jem.20190185](https://doi.org/10.1084/jem.20190185)). It is a longitudinal, multicenter microarray study from the PROMISSE cohort: whole-blood transcriptomes from SLE-pregnant, healthy-pregnant, SLE-non-pregnant, and healthy-non-pregnant women, sampled at up to five timepoints per donor (four pregnancy windows plus postpartum), profiled on Illumina HT-12 V4 beadchips.
+
+Rather than reprocessing the raw microarray data from scratch, this project sources it through **[ADEx (Autoimmune Diseases Explorer)](https://adex.genyo.es/)** — a curated database that reprocesses public autoimmune-disease omics datasets through a single, homogeneous pipeline (Martorell-Marugán et al., *BMC Bioinformatics* 2021, [doi.org/10.1186/s12859-021-04268-4](https://doi.org/10.1186/s12859-021-04268-4)).
+
+Working from the ADEx-processed version (rather than raw GEO data) means normalization and probe-to-gene mapping are already handled upstream in a standardized way — but the ADEx metadata still required substantial manual correction for this thesis.
 
 ### Useful links
 
-- Research Paper Source: [Longitudinal profiling of human blood transcriptome in healthy and lupus pregnancy](https://doi.org/10.1084/jem.20190185)
-- GEO Accession Display: [Series GSE108497](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE108497)
-- Autoimmune Diseases Explorer: [ADEx](https://adex.genyo.es/)
+- Source paper: [Hong et al. 2019, *J Exp Med*](https://doi.org/10.1084/jem.20190185)
+- GEO accession: [GSE108497](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE108497)
+- ADEx database: [adex.genyo.es](https://adex.genyo.es/)
+- ADEx paper: [Martorell-Marugán et al. 2021, *BMC Bioinformatics*](https://doi.org/10.1186/s12859-021-04268-4)
 
-## Goal of this project
-The aim of this project is to identify transcriptomic biomarkers of the autoimmune disease systemic lupus erythematosus (SLE) in pregnant women, by applying machine-learning methods to longitudinal microarray expression data from healthy and SLE individuals. The ultimate goal is to enable early, personalized monitoring of disease activity in individuals with suspected SLE. By preprocessing and further analysis of the data, high-dimensional gene-expression data will be transformed into optimized feature sets, before splitting into training and test sets. Then, training and comparison of multiple Machine Learning classifiers will take place, to predict disease status from gene-expression patterns. The final step, is to carry out comparisons across algorithms and feature sets to identify the best-performing model, and run a Negative Control for Accuracy to confirm its robustness and applicability. 
+---
 
-## Description of this Git Repository
-This Git Repository is consisted by folders in numerical order based on their purpose in the analysis, containing either the data used on the project, or the code to reach the expected - or unexpected ;) - outcome. Each folder contains of more files, or folders, and contains a README.md file to offer a more detailed description of its specificities. 
+## 3. Repository Structure
 
-## FOLDERS THAT DO NOT CONTAIN ANY SCIRPTS OR RESULTS
+```text
+.
+├── 00_Metadata/                  Metadata assembly & exploratory data analysis
+├── 01_RawData_&_PCA/             Raw expression QC/outlier removal + ALASCA longitudinal modeling
+├── 02_DGE_Analysis/               Differential gene expression (limma pipeline)
+├── 03_Feature_Validation/         Validation of the DEG feature set (union/intersection methods)
+├── 04_ML_Prerequisites/           ML-ready input table construction
+├── 05_ML_Pipeline/                Donor-aware benchmarking, panel derivation, held-out evaluation
+├── 06_Final_Panel_Validation/     Confounder & specificity validation of the final 3-gene panel
+├── .gitattributes / .gitignore
+├── LICENSE
+└── README.md                      (this file)
+```
 
-- **[05] Supplementary_Material**
+Each stage's subdirectory has files and folders that follow a shared convention:
 
-This folder includes research papers or their supplementary material, based on which I either developed part of my analysis (Step 07), or for result validation at the end of the analysis - that the significant genes identified were supported by references or not.
+- **File-numbering convention:** within each folder, files are numbered `00_`, `01_`, `02_`, … in the order the pipeline touches them. 
+    -- `00_` files are **inputs** carried in from the previous stage; 
+    -- odd numbers from `01_` onwards are **code** (notebooks or scripts); 
+    -- even numbers from `02_` onwards are **outputs** (results, tables, figures) produced by that code.
 
-- **[06] LitReview**
 
-This folder contains the Literature Review that took place in order to move forward with the Differential Expression Analysis step. It analysed three papers, the first two of which processed longitudinal gene expression datasets from tomatoes, or patients with inflammatory bowel disease. The third provided a comprehensive and detailed analytical pipeline used for the processing of RNAseq or Microarray longitudinal data. 
+## 4. Methodology Overview
+
+The pipeline runs as seven sequential stages, each stage's output becoming the next stage's input:
+
+1. **`00_Metadata`** — GEO/ADEx metadata is assembled, cleaned, and explored: correcting never-pregnant (NP) donor mislabeling, deduplicating at the donor level, fixing unit inconsistencies in gestational-age fields, and resolving within-donor inconsistencies by majority vote. NP donors are held out throughout as a specificity check rather than discarded.
+2. **`01_RawData_&_PCA`** — Outlier detection on the raw expression matrix (IQR-based and PCA + Mahalanobis/chi-squared methods), plus ALASCA longitudinal modeling of expression trajectories over pregnancy timepoints (NP donors excluded, since they lack a genuine repeated time series).
+3. **`02_DGE_Analysis`** — Differential expression analysis via `limma`, using a pooled random-effects meta-analysis approach (`metafor::rma()`) rather than naive per-timepoint pooling, to identify genes significantly different between SLE and healthy donors.
+4. **`03_Feature_Validation`** — Validation of the DEG feature set produced in stage 2, comparing selection methods (union vs. intersection across DE approaches) via PCA, PERMANOVA, and volcano/MA plots.
+5. **`04_ML_Prerequisites`** — Merges the validated 44-gene `Method_All_Union` expression panel with corrected sample metadata into a single ML-ready input table (pure formatting — no modeling).
+6. **`05_ML_Pipeline`** — The core modeling stage: donor-stratified development/held-out splitting, nested cross-validation benchmarking of feature-selection methods against classifiers, bootstrap-stability-based final panel derivation, and sealed held-out evaluation with SHAP interpretation.
+7. **`06_Final_Panel_Validation`** — Confirms the final 3-gene panel tracks SLE status specifically — not pregnancy complication severity, pregnancy status alone, or batch — using likelihood-ratio tests against the held-out never-pregnant donor cohort.
+
+A visual flow diagram tying all seven repository stages together is planned but not yet built; this section will link to it once available. (A separate, narrower flowchart set already exists inside `05_ML_Pipeline` — a 4-section diagram covering just that stage's donor-split → benchmarking → panel-derivation → held-out-evaluation workflow — see that stage's own README.)
+
+---
+
+## 5. Methodological Safeguards
+
+Several design decisions recur across stages, aimed at preventing leakage and overfitting given the dataset's longitudinal (repeated-measures) structure:
+
+- **Donor-aware splitting** — all samples from a given donor stay in a single subset across every split and cross-validation fold, everywhere in the pipeline.
+- **Sealed held-out evaluation** — the held-out cohort is untouched during feature selection, model tuning, or panel construction, and is used exactly once.
+- **Nested cross-validation** — separate inner (hyperparameter tuning) and outer (performance estimation) loops.
+- **Bootstrap stability filtering** — genes are prioritized by how consistently they're selected under donor-level resampling, not by a single run's ranking.
+- **Permutation testing** — a null AUC distribution from label permutation is used to assess whether observed performance exceeds chance.
+- **Specificity validation** — the final panel is explicitly tested against alternative explanations (pregnancy, complications, batch) rather than assumed to be SLE-specific by construction.
+
+---
+
+## 6. Main Results
+
+**Current final panel:** **HERC5, BATF2, SPATS2L**, derived via Boruta feature selection + SVM classification on the 44-gene `Method_All_Union` candidate space (bootstrap selection frequency ≥0.80, Pearson pruning at |r|≥0.90), and confirmed in `06_Final_Panel_Validation` to track SLE status specifically rather than pregnancy status or complication severity.
+
+**Sealed held-out performance** (27 donors / 96 samples, never touched during model or panel selection):
+
+| Metric | Value |
+|---|---|
+| AUC | 0.861 (95% CI 0.774–0.921, 200 bootstrap resamples) |
+| Sensitivity | 0.810 |
+| Specificity | 0.788 |
+| Accuracy | 0.802 |
+| F1 | 0.843 |
+| Permutation test | observed AUC 0.923 (development-set CV) vs. null mean 0.497, *p* = 0.005 (200 donor-stratified permutations) |
+
+A logistic-regression comparator on the same 3-gene panel scored slightly *higher* on the held-out set (AUC 0.884, 95% CI 0.803–0.939) than the winning SVM — reported transparently as a baseline check rather than smoothed over; with only 3 features, a linear model is a reasonable competitor to SVM here. SHAP analysis on the held-out set ranks the panel's contribution as HERC5 > BATF2 > SPATS2L, consistent across the beeswarm and mean-|SHAP| plots.
+
+---
+
+## 8. Key References
+
+### Data Source Paper
+- Hong S, Banchereau R, Maslow B-SL, et al. Longitudinal profiling of human blood transcriptome in healthy and lupus pregnancy. *J Exp Med*. 2019;216(5):1154–1169. https://doi.org/10.1084/jem.20190185
+
+### Other References
+- Martorell-Marugán J, López-Domínguez R, García-Moreno A, et al. A comprehensive database for integrated analysis of omics data in autoimmune diseases. *BMC Bioinformatics*. 2021;22:343. https://doi.org/10.1186/s12859-021-04268-4
+- Kursa MB, Rudnicki WR. Boruta – a system for feature selection. *Fundamenta Informaticae*. 2010;101(4):271–285.
+- Lundberg SM, Lee S-I. A unified approach to interpreting model predictions. *NeurIPS*. 2017;30:4765–4774.
+- Kapoor S, Narayanan A. Leakage and the reproducibility crisis in machine-learning-based science. *Patterns*. 2023;4(9):100804.
