@@ -40,19 +40,18 @@ Working from the ADEx-processed version (rather than raw GEO data) means normali
 
 ## 3. Repository Structure
 
-```text
-.
-├── 00_Metadata/                  Metadata assembly & exploratory data analysis
-├── 01_RawData_&_PCA/             Raw expression QC/outlier removal + ALASCA longitudinal modeling
-├── 02_DGE_Analysis/               Differential gene expression (limma pipeline)
-├── 03_Feature_Validation/         Validation of the DEG feature set (union/intersection methods)
-├── 04_ML_Prerequisites/           ML-ready input table construction
-├── 05_ML_Pipeline/                Donor-aware benchmarking, panel derivation, held-out evaluation
-├── 06_Final_Panel_Validation/     Confounder & specificity validation of the final 3-gene panel
-├── .gitattributes / .gitignore
-├── LICENSE
-└── README.md                      (this file)
-```
+| Folder | Description | README(s) |
+|---|---|---|
+| `00_Metadata/` | Metadata assembly & exploratory data analysis | [README](./00_Metadata/README.md) · [04_Analysis_Results](./00_Metadata/04_Analysis_Results/README.md) |
+| `01_RawData_&_PCA/` | Raw expression QC/outlier removal + ALASCA longitudinal modeling | [README](./01_RawData_%26_PCA/README.md) · [02_Analysis_Results](./01_RawData_%26_PCA/02_Analysis_Results/README.md) · [04_ALASCA_Output](./01_RawData_%26_PCA/04_ALASCA_Output/README.md) |
+| `02_DGE_Analysis/` | Differential gene expression (limma pipeline) | [README](./02_DGE_Analysis/README.md) · [02_Results](./02_DGE_Analysis/02_Results/README.md) · [A_SLE_vs_Healthy](./02_DGE_Analysis/02_Results/A_SLE_vs_Healthy/README.md) · [B_Pooled_SLE_vs_Healthy](./02_DGE_Analysis/02_Results/B_Pooled_SLE_vs_Healthy/README.md) · [C_Dream_SLE_vs_Healthy](./02_DGE_Analysis/02_Results/C_Dream_SLE_vs_Healthy/README.md) · [Gene_Clusters](./02_DGE_Analysis/02_Results/Gene_Clusters/README.md) · [DE_Genes](./02_DGE_Analysis/02_Results/DE_Genes/README.md) |
+| `03_Feature_Validation/` | Validation of the DEG feature set (union/intersection methods) | [README](./03_Feature_Validation/README.md) · [02_Results](./03_Feature_Validation/02_Results/README.md) · [MA_Plots](./03_Feature_Validation/02_Results/MA_Plots/README.md) · [PCA_Plots](./03_Feature_Validation/02_Results/PCA_Plots/README.md) · [PERMANOVA](./03_Feature_Validation/02_Results/PERMANOVA/README.md) · [Volcano_Plots](./03_Feature_Validation/02_Results/Volcano_Plots/README.md) |
+| `04_ML_Prerequisites/` | ML-ready input table construction | [README](./04_ML_Prerequisites/README.md) |
+| `05_ML_Pipeline/` | Donor-aware benchmarking, panel derivation, held-out evaluation | [README](./05_ML_Pipeline/README.md) · [01_Code](./05_ML_Pipeline/01_Code/README.md) · [02_Output](./05_ML_Pipeline/02_Output/README.md) |
+| `06_Final_Panel_Validation/` | Confounder & specificity validation of the final 3-gene panel | [README](./06_Final_Panel_Validation/README.md) · [02_Validation_Output](./06_Final_Panel_Validation/02_Validation_Output/README.md) |
+| `.gitattributes` / `.gitignore` | Git LFS tracking rules and ignore patterns | — |
+| `LICENSE` | Repository license | — |
+| `README.md` | This file | — |
 
 Each stage's subdirectory has files and folders that follow a shared convention:
 
